@@ -1,0 +1,32 @@
+.footer-top {
+    margin-top: 100px;
+    background-color: #262626;
+    text-align: center;
+    position: relative;
+}
+
+.btn-footer {
+    position: absolute;
+    text-decoration: none;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-top_logo {
+    margin-top: 64px;
+}
+
+.footer-top_sub {
+    padding: 36px 56px 48px;
+    color: var(--white-color);
+    font-size: 13px;
+    line-height: 22px;
+    letter-spacing: 1px;
+    font-weight: 400;
+    font-style: italic;
+}

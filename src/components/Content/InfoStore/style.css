@@ -1,0 +1,43 @@
+/* info-store */
+
+.info-store_about {
+    text-align: center;
+}
+
+.info-store_about-img {
+    margin: 54px 0 36px;
+    cursor: pointer;
+}
+
+.info-store_about-sub {
+    color: var(--text-color);
+    font-size: 16px;
+    font-weight: 500;
+    transition: all linear 0.2s;
+}
+
+.info-store_about-sub:hover {
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+.info-store_about-text {
+    color: var(--text-color);
+    font-size: 14px;
+    margin: 16px 0;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+.info-store_logo-img {
+    object-fit: contain;
+    width: 100%;
+    border: 1px solid #e8e8e8;
+    margin-top: 28px;
+    height: 150px;
+}
+
+.info-store_logo-img:hover {
+    border: 1px solid var(--primary-color);
+    cursor: pointer;
+}

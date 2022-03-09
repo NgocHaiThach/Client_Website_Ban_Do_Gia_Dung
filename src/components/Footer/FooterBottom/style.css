@@ -1,0 +1,35 @@
+.footer-bottom {
+    background-color: #161616;
+}
+
+.footer-bottom_about {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-top: 12px;
+    padding-bottom: 26px;
+    border-top: 2px solid var(--primary-color);
+}
+
+.footer-bottom_about p,
+.footer-bottom_about h3 {
+    color: var(--white-color);
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.footer-bottom_about a {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--white-color);
+    transition: all 0.2s linear;
+}
+
+.footer-bottom_about a:hover {
+    color: var(--primary-color);
+}
+
+.footer-bottom_about-pay {
+    display: flex;
+    justify-content: center;
+}

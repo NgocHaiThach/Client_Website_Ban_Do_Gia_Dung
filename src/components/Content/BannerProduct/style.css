@@ -1,0 +1,14 @@
+/* baner-produce........................................ */
+
+.baner-product {
+    margin-top: 26px;
+}
+
+.baner-product_img {
+    object-fit: contain;
+    width: 100%;
+}
+
+.baner-product_img:last-child {
+    padding-top: 32px;
+}

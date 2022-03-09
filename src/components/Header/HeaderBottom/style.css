@@ -1,0 +1,104 @@
+/* header-bottom ......................................*/
+
+.header-bottom {
+    display: flex;
+    justify-content: space-between;
+    margin: 32px 0;
+    max-height: 46px;
+}
+
+.header-bottom_logo {
+    width: 200px;
+    /* height: 41px; */
+    margin-right: 25px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #c92127;
+    text-align: center;
+    cursor: pointer;
+}
+
+.header-bottom_logo img {
+    width: 100%;
+}
+
+.header-bottom_search {
+    flex: 1;
+    display: flex;
+    height: 40px;
+}
+
+.header-bottom_menu {
+    display: none;
+}
+
+.header-bottom_search-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--primary-color);
+    outline: none;
+    color: var(--text-opacity);
+    height: 45px;
+    font-size: 16px;
+}
+
+.header-bottom_search-btn {
+    padding: 0 12px;
+    font-size: 14px;
+    color: var(--white-color);
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: unset;
+    border-top-right-radius: 1px;
+    border-top-left-radius: 1px;
+    cursor: pointer;
+    height: 45px;
+}
+
+.header-bottom_cart {
+    display: flex;
+    margin-left: 70px;
+    height: 100%;
+    cursor: pointer;
+}
+
+.header-bottom_cart-icon {
+    text-align: center;
+    padding: 10px 15px;
+    margin-right: 24px;
+    color: var(--white-color);
+    border-radius: 1px;
+    background-color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    outline: none;
+    position: relative;
+    cursor: pointer;
+    height: 45px;
+}
+
+.header-bottom_cart-select {
+    position: absolute;
+    z-index: 1;
+    top: 110%;
+    right: 0;
+    background-color: var(--white-color);
+    color: var(--text-color);
+    width: 350px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    display: none;
+    padding: 32px;
+}
+
+.header-bottom_cart-info {
+    font-size: 13px;
+    line-height: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    color: var(--text-opacity);
+}
