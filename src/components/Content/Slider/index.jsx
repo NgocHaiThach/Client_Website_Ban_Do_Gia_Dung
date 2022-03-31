@@ -21,53 +21,53 @@ function Slider(props) {
                                 <ul className="nav-list">
                                     <li className="nav-item">TRANG CHỦ
                                     </li>
-                                    <li className="nav-item">TRẺ EM
+                                    <li className="nav-item">ĐỒ GIA DỤNG
                                         <div className="bar-item_propose nav-item_propose">
                                             <ul className="bar-item_propose-list">
-                                                <li className="bar-item_propose-item">THỜI TRANG TRẺ EM</li>
-                                                <li className="bar-item_propose-item">SunStop</li>
-                                                <li className="bar-item_propose-item">Bé trai</li>
-                                                <li className="bar-item_propose-item">Bé gái</li>
-                                                <li className="bar-item_propose-item">Đồ sơ sinh</li>
-                                                <li className="bar-item_propose-item">Đồ lót trẻ em</li>
+                                                <li className="bar-item_propose-item">NỒI NHÔM</li>
 
                                             </ul>
                                             <ul className="bar-item_propose-list">
-                                                <li className="bar-item_propose-item">PHỤ KIỆN CHO BÉ</li>
-                                                <li className="bar-item_propose-item">Tất chân</li>
-                                                <li className="bar-item_propose-item">Đồ bơi</li>
-                                                <li className="bar-item_propose-item">Giày dép trẻ em</li>
+                                                <li className="bar-item_propose-item">NỒI INOX</li>
                                             </ul>
                                             <ul className="bar-item_propose-list">
-                                                <li className="bar-item_propose-item">CHĂM SÓC BÉ</li>
-                                                <li className="bar-item_propose-item">Giấy ướt</li>
-                                                <li className="bar-item_propose-item">Chăm sóc răng miệng</li>
-                                                <li className="bar-item_propose-item">Sữa tắm gội - Nước giặt rửa</li>
-                                                <li className="bar-item_propose-item">Đồ dùng khác</li>
+                                                <li className="bar-item_propose-item">NỒI ÁP SUẤT</li>
+                                            </ul>
+                                            <ul className="bar-item_propose-list">
+                                                <li className="bar-item_propose-item">NỒI ANOD</li>
+                                            </ul>
+                                            <ul className="bar-item_propose-list">
+                                                <li className="bar-item_propose-item">BỘ NỒI CHẢO</li>
+                                            </ul>
+                                            <ul className="bar-item_propose-list">
+                                                <li className="bar-item_propose-item">CHẢO CHỐNG DÍNH</li>
                                             </ul>
                                         </div>
                                     </li>
-                                    <li className="nav-item">NAM
+                                    <li className="nav-item">ĐIỆN GIA DỤNG
                                         <div className="bar-item_propose nav-item_propose">
                                             <ul className="bar-item_propose-list">
-                                                <li className="bar-item_propose-item">THỜI TRANG</li>
-                                                <li className="bar-item_propose-item">SunStop</li>
-                                                <li className="bar-item_propose-item">TokyoBasic</li>
-                                                <li className="bar-item_propose-item">TokyoNow</li>
-                                                <li className="bar-item_propose-item">Đồ lót - Đồ mặc nhà</li>
+                                                <li className="bar-item_propose-item">NỒI CƠM ĐIỆN</li>
+
                                             </ul>
                                             <ul className="bar-item_propose-list">
-                                                <li className="bar-item_propose-item">PHỤ KIỆN</li>
-                                                <li className="bar-item_propose-item">Túi ví thắt lưng</li>
-                                                <li className="bar-item_propose-item">Balo</li>
-                                                <li className="bar-item_propose-item">Kính mắt</li>
-                                                <li className="bar-item_propose-item">Giày dép</li>
-                                                <li className="bar-item_propose-item">Tất chân</li>
-                                                <li className="bar-item_propose-item">Găng tay</li>
+                                                <li className="bar-item_propose-item">NỒI CHIÊN KHÔNG DẦU</li>
+                                            </ul>
+                                            <ul className="bar-item_propose-list">
+                                                <li className="bar-item_propose-item">BẾP HỒNG NGOẠI</li>
+                                            </ul>
+                                            <ul className="bar-item_propose-list">
+                                                <li className="bar-item_propose-item">BẾP ĐIỆN TỬ</li>
+                                            </ul>
+                                            <ul className="bar-item_propose-list">
+                                                <li className="bar-item_propose-item">ẤM SIÊU TỐC</li>
+                                            </ul>
+                                            <ul className="bar-item_propose-list">
+                                                <li className="bar-item_propose-item">MÁY SẤY TÓC</li>
                                             </ul>
                                         </div>
                                     </li>
-                                    <li className="nav-item">NỮ
+                                    <li className="nav-item">ĐIỆN TỬ ĐIỆN LẠNH
                                         <div className="bar-item_propose nav-item_propose">
                                             <ul className="bar-item_propose-list">
                                                 <li className="bar-item_propose-item">THỜI TRANG</li>
@@ -92,7 +92,7 @@ function Slider(props) {
                                             </ul>
                                         </div>
                                     </li>
-                                    <li className="nav-item">TIÊU DÙNG
+                                    <li className="nav-item">THIẾT BỊ NHÀ BẾP
                                         <div className="bar-item_propose nav-item_propose">
                                             <ul className="bar-item_propose-list">
                                                 <li className="bar-item_propose-item">ĐỒ DÙNG GIA ĐÌNH</li>
@@ -118,7 +118,7 @@ function Slider(props) {
                                             </ul>
                                         </div>
                                     </li>
-                                    <li className="nav-item">LÀM ĐẸP
+                                    <li className="nav-item">ĐỒ DÙNG NHÀ BẾP
                                         <div className="bar-item_propose nav-item_propose">
                                             <ul className="bar-item_propose-list">
                                                 <li className="bar-item_propose-item">CHĂM SÓC DA MẶT</li>
@@ -144,9 +144,9 @@ function Slider(props) {
                                             </ul>
                                         </div>
                                     </li>
-                                    <li className="nav-item">MADE BY ANGELS
-                                    </li>
-                                    <li className="nav-item">COMBO
+                                    {/* <li className="nav-item">MADE BY ANGELS
+                                    </li> */}
+                                    <li className="nav-item">ĐIỆN DÂN DỤNG
                                         <div className="bar-item_propose nav-item_propose">
                                             <ul className="bar-item_propose-list">
                                                 <li className="bar-item_propose-item">COMBO KEM/ XỊT CHỐNG NẮNG</li>

@@ -91,6 +91,7 @@
     color: var(--text-color);
     padding: 16px 0;
     line-height: 18px;
+    font-weight: 400;
 }
 
 .bar-item_propose-item:first-child {
@@ -124,6 +125,7 @@
     font-size: 13px;
     color: var(--text-opacity);
     position: relative;
+    font-weight: 700;
 }
 
 .nav-item:hover {
@@ -137,7 +139,7 @@
 
 .nav-item_propose {
     top: 100%;
-    left: -400%;
+    left: -176%;
 }
 /* slider.................................. */
 

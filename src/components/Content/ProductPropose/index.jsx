@@ -55,7 +55,7 @@ const Propose = ({ active }) => {
                             alt="TOKYOLIFE" />
                         <img src="https://tokyolife.vn/media/wysiwyg/home/I-Online.svg" alt=""
                             className="product-propose_new-item_logo" />
-                        <p className="product-propose_new-item_info">Áo khoác 1 lớp Nữ ...</p>
+                        <p className="product-propose_new-item_info">NỒI CƠM ĐIỆN 1.8L MAMA SHD8658G</p>
                         <h4 className="product-propose_new-item_price">390.000 ₫</h4>
                     </div>
                     {/* </div> */}
@@ -67,7 +67,7 @@ const Propose = ({ active }) => {
                             alt="TOKYOLIFE" />
                         <img src="https://tokyolife.vn/media/wysiwyg/home/I-Online.svg" alt=""
                             className="product-propose_new-item_logo" />
-                        <p className="product-propose_new-item_info">Áo khoác 5in1 Nam ...</p>
+                        <p className="product-propose_new-item_info">BẾP ĐÔI ĐIỆN TỪ MAMA MMB9208DIH</p>
                         <h4 className="product-propose_new-item_price">590.000 ₫</h4>
                     </div>
                     {/* </div> */}
@@ -79,7 +79,7 @@ const Propose = ({ active }) => {
                             alt="TOKYOLIFE" />
                         <img src="https://tokyolife.vn/media/wysiwyg/home/I-Online.svg" alt=""
                             className="product-propose_new-item_logo" />
-                        <p className="product-propose_new-item_info">Áo khoác 5in1 nữ mũ ...</p>
+                        <p className="product-propose_new-item_info">Máy lọc nước R.O 10 lõi SLIMBIO SHA76213CK-S</p>
                         <h4 className="product-propose_new-item_price">590.000 ₫</h4>
                     </div>
                     {/* </div> */}
@@ -91,7 +91,7 @@ const Propose = ({ active }) => {
                             alt="TOKYOLIFE" />
                         <img src="https://tokyolife.vn/media/wysiwyg/home/I-Online.svg" alt=""
                             className="product-propose_new-item_logo" />
-                        <p className="product-propose_new-item_info">Áo khoác 5in1 nữ ...</p>
+                        <p className="product-propose_new-item_info">ẤM SIÊU TỐC THỦY TINH 1.7L MAMA SHD1330</p>
                         <h4 className="product-propose_new-item_price">690.000 ₫</h4>
                     </div>
                     {/* </div> */}
@@ -103,7 +103,7 @@ const Propose = ({ active }) => {
                             alt="TOKYOLIFE" />
                         <img src="https://tokyolife.vn/media/wysiwyg/home/I-Online.svg" alt=""
                             className="product-propose_new-item_logo" />
-                        <p className="product-propose_new-item_info">Áo khoác 5in1 nữ ...</p>
+                        <p className="product-propose_new-item_info">MÀNG LỌC KHÔNG KHÍ SHD-AF9718</p>
                         <h4 className="product-propose_new-item_price">690.000 ₫</h4>
                     </div>
                     {/* </div> */}
@@ -115,7 +115,7 @@ const Propose = ({ active }) => {
                             alt="TOKYOLIFE" />
                         <img src="https://tokyolife.vn/media/wysiwyg/home/I-Online.svg" alt=""
                             className="product-propose_new-item_logo" />
-                        <p className="product-propose_new-item_info">Áo khoác 5in1 nam ...</p>
+                        <p className="product-propose_new-item_info">NỒI CHIÊN KHÔNG DẦU 6L SHD4026</p>
                         <h4 className="product-propose_new-item_price">690.000 ₫</h4>
                     </div>
                     {/* </div> */}
@@ -127,7 +127,7 @@ const Propose = ({ active }) => {
                             alt="TOKYOLIFE" />
                         <img src="https://tokyolife.vn/media/wysiwyg/home/I-Online.svg" alt=""
                             className="product-propose_new-item_logo" />
-                        <p className="product-propose_new-item_info">Áo khoác 5in1 trẻ em ...</p>
+                        <p className="product-propose_new-item_info">BẾP ĐIỆN TỪ CẢM ỨNG MAMA SHD6872</p>
                         <h4 className="product-propose_new-item_price">350.000 ₫</h4>
                     </div>
                     {/* </div> */}
@@ -173,7 +173,7 @@ const ProductNew = ({ active }) => {
                         alt="TOKYOLIFE" />
                     <img src="https://tokyolife.vn/media/wysiwyg/home/I-Online.svg" alt=""
                         className="product-propose_new-item_logo" />
-                    <p className="product-propose_new-item_info">Áo khoác 5in1 nữ ...</p>
+                    <p className="product-propose_new-item_info">BẾP GAS DƯƠNG MẶT MEN MAMA MMB0980</p>
                     <h4 className="product-propose_new-item_price">790.000 ₫</h4>
                 </div>
                 {/* </div> */}
@@ -185,7 +185,7 @@ const ProductNew = ({ active }) => {
                         alt="TOKYOLIFE" />
                     <img src="https://tokyolife.vn/media/wysiwyg/home/I-Online.svg" alt=""
                         className="product-propose_new-item_logo" />
-                    <p className="product-propose_new-item_info">Áo khoác 1 lớp Nam ...</p>
+                    <p className="product-propose_new-item_info">MÁY HÚT MÙI CAO CẤP KÍNH CONG MAMA MMB6682-70</p>
                     <h4 className="product-propose_new-item_price">390.000 ₫</h4>
                 </div>
                 {/* </div> */}
@@ -198,7 +198,7 @@ const ProductNew = ({ active }) => {
                         alt="TOKYOLIFE" />
                     <img src="https://tokyolife.vn/media/wysiwyg/home/I-Online.svg" alt=""
                         className="product-propose_new-item_logo" />
-                    <p className="product-propose_new-item_info">Áo khoác 5in1 nữ ...</p>
+                    <p className="product-propose_new-item_info">MÁY SẤY TÓC SHD2315G</p>
                     <h4 className="product-propose_new-item_price">690.000 ₫</h4>
                 </div>
                 {/* </div> */}
@@ -210,7 +210,7 @@ const ProductNew = ({ active }) => {
                         alt="TOKYOLIFE" />
                     <img src="https://tokyolife.vn/media/wysiwyg/home/I-Online.svg" alt=""
                         className="product-propose_new-item_logo" />
-                    <p className="product-propose_new-item_info">Áo khoác 5in1 nam ...</p>
+                    <p className="product-propose_new-item_info">Bộ nồi Anod SHG2703GA</p>
                     <h4 className="product-propose_new-item_price">690.000 ₫</h4>
                 </div>
                 {/* </div> */}
@@ -222,7 +222,7 @@ const ProductNew = ({ active }) => {
                         alt="TOKYOLIFE" />
                     <img src="https://tokyolife.vn/media/wysiwyg/home/I-Online.svg" alt=""
                         className="product-propose_new-item_logo" />
-                    <p className="product-propose_new-item_info">Áo khoác 5in1 trẻ em ...</p>
+                    <p className="product-propose_new-item_info">BẾP HỒNG NGOẠI CƠ SHD6004</p>
                     <h4 className="product-propose_new-item_price">350.000 ₫</h4>
                 </div>
                 {/* </div> */}

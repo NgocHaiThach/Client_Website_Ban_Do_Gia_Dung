@@ -87,6 +87,20 @@
     margin-left: 100px;
 }
 
+.product-propose_new-item_contain {
+    position: relative;
+    margin-top: 18px;
+    max-width: 120px;
+    /* margin-left: 100px; */
+}
+
+.product-propose_new-item_img_contain {
+    object-fit: contain;
+    width: 100%;
+    transition: opacity ease 0.2s;
+    cursor: pointer;
+    height: 150px;
+}
 .product-propose_new-item_img {
     object-fit: contain;
     width: 100%;
