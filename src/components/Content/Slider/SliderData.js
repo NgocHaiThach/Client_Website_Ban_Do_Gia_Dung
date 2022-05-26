@@ -2,9 +2,9 @@ export const SliderData = [
     {
         image: 'https://sunhouse.com.vn/pic/product/doGiaDungBanner-1.png',
     },
-    {
-        image: 'https://thetindung.vpbank.com.vn/sites/default/files/sh_650.png',
-    },
+    // {
+    //     image: 'https://thetindung.vpbank.com.vn/sites/default/files/sh_650.png',
+    // },
     {
         image: 'https://tintuc.viettelstore.vn/wp-content/uploads/2021/09/gia-dung-giam-gia-4.jpg',
     },

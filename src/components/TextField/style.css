@@ -1,0 +1,190 @@
+.checkout-field__label {
+    font-size: 14px !important;
+    font-weight: 400;
+    font-family: "Roboto", sans-serif;
+    margin-bottom: 10px !important;
+    color: #333;
+    text-align: left;
+    display: block;
+  }
+  
+  .checkout-field__input {
+    padding-left: 2em !important;
+    padding-right: 2em !important;
+    height: 40px !important;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  .memberhsip_chk-bg {
+    box-shadow: 0.083333333in 0.5pc 1.125pc -7px rgb(25 42 70 / 13%);
+  }
+  
+  .order-sumary {
+    position: sticky;
+    top: 72px;
+  }
+  
+  .checkout_title h4 {
+    font-size: 18px;
+    font-weight: 500;
+    font-family: "Roboto", sans-serif;
+    margin-bottom: 10px !important;
+    color: #333;
+    text-align: left;
+    line-height: 26px;
+  }
+  
+  .address-text {
+    font-size: 12px;
+    line-height: 24px;
+  }
+  
+  .tab-content {
+    border-bottom: 1px solid rgb(224, 221, 221);
+    padding-bottom: 2rem;
+  }
+  
+  .order-title {
+    border-bottom: 1px solid rgb(224, 221, 221);
+    padding-bottom: 1rem;
+  }
+  
+  .order-title h2 {
+    font-size: 20px;
+    font-weight: 600;
+    font-family: "Roboto", sans-serif;
+    color: #333;
+    float: left;
+    width: 70%;
+    text-align: left;
+    line-height: 24px;
+    margin-bottom: 0;
+  }
+  
+  .order-title h4 {
+    font-size: 16px;
+    font-weight: 600;
+    font-family: "Roboto", sans-serif;
+    color: #333;
+    float: left;
+    margin-bottom: 0;
+    line-height: 24px;
+    width: 70%;
+    text-align: left;
+  }
+  
+  .order-title h6 {
+    font-size: 16px;
+    font-weight: 500;
+    font-family: "Roboto", sans-serif;
+    color: #686f7a;
+    float: left;
+    width: 70%;
+    text-align: left;
+    line-height: 24px;
+    margin-bottom: 0;
+  }
+  
+  .order-price {
+    font-size: 16px;
+    font-weight: 500;
+    font-family: "Roboto", sans-serif;
+    color: #686f7a;
+    text-align: right;
+    float: right;
+    width: 30%;
+    margin-bottom: 0;
+  }
+  
+  .order-priceT {
+    font-size: 20px;
+    font-weight: 600;
+    font-family: "Roboto", sans-serif;
+    color: #333;
+    text-align: right;
+    float: right;
+    width: 30%;
+    margin-bottom: 0;
+  }
+  
+  .checks__tab {
+    position: relative;
+    width: 100%;
+    border: 1px solid #efefef;
+    border-radius: 3.5px 3.5px 0px 0px;
+    background-color: #f7f7f7;
+    color: #333;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 15px 10px;
+    text-align: center;
+    cursor: pointer;
+    opacity: 0.8;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .checks__tab::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 0.1rem;
+    width: 100%;
+    background-color: transparent;
+  }
+  
+  .checks__tab:hover {
+    opacity: 1;
+  }
+  
+  .checks__tab.active {
+    color: #ed2a26;
+  }
+  
+  .checks__tab.active:hover {
+    color: #333;
+  }
+  
+  .checks__tab.active::before {
+    background-color: #ed2a26;
+  }
+  
+  .checks__tab span {
+    margin-left: 8px;
+  }
+  
+  .t-body {
+    font-size: 14px;
+    font-weight: 400;
+    font-family: "Roboto", sans-serif;
+    margin-bottom: 30px !important;
+    color: #686f7a;
+    line-height: 26px;
+    text-align: left;
+  }
+  
+  .t2-body {
+    font-size: 14px;
+    font-weight: 400;
+    font-family: "Roboto", sans-serif;
+    margin-bottom: 10px !important;
+    color: #686f7a;
+    line-height: 26px;
+    text-align: left;
+    margin-top: 12px !important;
+  }
+  
+  .scr-text {
+    font-size: 14px;
+    font-weight: 400;
+    color: #686f7a;
+    /* width: 100%; */
+  }
+  .scr-text span {
+    margin-left: 5px;
+  }
+  

@@ -1,5 +1,5 @@
 import React from 'react';
-import BannerProduct from './BannerProduct';
+import ProductContainerFeature from '../../features/ProductContainerFeature';
 import InfoStore from './InfoStore';
 import ProductContainer from './ProductContainer';
 import ProductPropose from './ProductPropose';
@@ -14,9 +14,9 @@ function Content(props) {
             <ProductPropose />
 
             {/* main-product  */}
-            <ProductContainer />
-            <ProductContainer />
-
+            <ProductContainerFeature />
+            {/* <ProductContainer /> */}
+            {/* <ProductContainer /> */}
             <InfoStore />
         </div>
     );

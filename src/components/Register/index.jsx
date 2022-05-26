@@ -1,0 +1,194 @@
+import React from 'react';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Link } from 'react-router-dom';
+import './style.css';
+import * as yup from 'yup';
+import callApi from '../../utils/callApi';
+import { useHistory } from 'react-router-dom';
+import { useForm } from "react-hook-form";
+import cookies from 'react-cookies';
+
+
+const schema = yup.object().shape({
+    username: yup.string().required().min(9),
+    password: yup.string().required().min(5),
+    repeatPassword: yup.string().required().oneOf([yup.ref('password')]),
+}).required();
+
+function Register(props) {
+
+    // hook useForm
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(schema)
+    });
+    const history = useHistory();
+
+    const handleOnSubmit = async (data) => {
+
+        try {
+            await callApi('/customers/register', 'POST', {
+                phone: data.username,
+                password: data.password,
+            })
+                .then(res => {
+                    // console.log('res', res)
+                    if (res.status === 200) {
+                        console.log('success', res)
+
+                        // cookies.save('userToken', {
+                        //     userPhone: res.data.result.phone,
+                        //     userId: res.data.result.customerId,
+                        //     token: res.data.result.token,
+                        // })
+                        // localStorage.setItem('userToken', JSON.stringify({
+                        //     userId: res.data.result.phone,
+                        //     token: res.data.result.token
+                        // }))
+                        // const action = login(jwt_decode(res.data.token).UserName)
+                        // dispath(action)
+                        // getCarts(dispath, res.data.token, jwt_decode(res.data.token).UserId)
+                        // history.push('/')
+                    }
+                    else if (res.status !== 200) {
+                        console.log('dang nhap that bai')
+                        // loginFaild = true
+                    }
+                })
+                .catch(err => {
+                    console.log(err)
+                    // setStatus('hai123462734567')
+                    // console.log('loginFail', status)
+                    alert('Tài khoản hoặc mật khẩu sai vui lòng kiểm tra lại')
+
+                })
+            // if (loginFaild === false) {
+            //     history.push('/home/all')
+            // }
+        }
+        catch (err) {
+            alert('Tài khoản không tồn tại')
+        }
+    }
+
+    const onSubmit = (data, e) => {
+        e.preventDefault();
+        if (handleOnSubmit) handleOnSubmit(data)
+        console.log(data)
+    }
+    return (
+        <div className="modal" >
+            <div className="modal__overlay">
+            </div>
+            <div className="modal__body">
+                {/* <!-- Authen Form --> */}
+                <div id="auth-form-register" className="auth-form">
+                    <form
+                        onSubmit={handleSubmit(onSubmit)}
+                        className="auth-form__container">
+                        <div className="auth-form__header">
+                            <h3 className="auth-form__heading">Đăng Ký</h3>
+                            <Link to='/login' className="auth-form__switch-btn">Đăng Nhập</Link>
+                        </div>
+
+                        <div className="auth-form__form">
+                            {/* <div className="auth-form__group">
+                                <input
+                                    name="email"
+                                    // {...register("email")}
+                                    type="text"
+                                    placeholder="Email của bạn"
+                                    className="auth-form__iput" />
+                            </div>
+                            {errors?.email?.type === "required" && <p className="valid-form__message">Vui lòng nhập email</p>}
+                            {errors?.email?.type === "email" && <p className="valid-form__message">Vui lòng nhập đúng email</p>} */}
+
+                            {/* <div className="auth-form__group">
+                                <input
+                                    name="fullname"
+                                    // {...register("fullname")}
+                                    type="text"
+                                    placeholder="Tên người dùng"
+                                    className="auth-form__iput" />
+                            </div>
+                            {errors?.fullname?.type === "required" && <p className="valid-form__message">Vui lòng nhập tên người dùng</p>} */}
+
+                            <div className="auth-form__group">
+                                <input
+                                    name="username"
+                                    {...register("username")}
+                                    type="text"
+                                    placeholder="Số điện thoại của bạn"
+                                    className="auth-form__iput" />
+                            </div>
+                            {errors?.username?.type === "required" && <p className="valid-form__message">Vui lòng nhập số điện thoại</p>}
+                            {errors?.username?.type === "min" && <p className="valid-form__message">Vui lòng nhập đúng số điện thoại</p>}
+
+                            <div className="auth-form__group">
+                                <input
+                                    name="password"
+                                    {...register("password")}
+                                    type="password"
+                                    placeholder="Mật khẩu của bạn"
+                                    className="auth-form__iput" />
+                            </div>
+                            {errors?.password?.type === "required" && <p className="valid-form__message">Vui lòng nhập mật khẩu</p>}
+                            {errors?.password?.type === "min" && <p className="valid-form__message">Mật khẩu phải dài hơn 5 ký tự!</p>}
+
+                            <div className="auth-form__group">
+                                <input
+                                    name="repeatPassword"
+                                    {...register("repeatPassword")}
+                                    type="password"
+                                    placeholder="Nhập lại mật khẩu"
+                                    className="auth-form__iput" />
+                            </div>
+                            {errors?.repeatPassword?.type === "required" && <p className="valid-form__message">Vui lòng nhập mật khẩu</p>}
+                            {errors?.repeatPassword?.type === "oneOf" && <p className="valid-form__message">Mật khẩu không khớp!</p>}
+                        </div>
+
+                        <div className="auth-form__aside">
+                            <p className="auth-form__policy-text">
+                                Bằng việc đăng kí, bạn đã đồng ý với TNH-shop về
+                                <a href="#" className="auth-form__text-link"> Điều khoản dịch vụ</a>
+                                <a href="3" className="auth-form__text-link"> Chính sách bảo mật</a>
+                            </p>
+                        </div>
+
+                        <div className="auth-form__controls">
+                            <Link
+                                to="/"
+                                className="btn auth-form__controls-back btn--normal"
+                            >
+                                TRỞ LẠI
+                            </Link>
+                            <button
+                                className="btn btn--primary auth-form__controls-login"
+                                type="submit"
+                            // onClick={handleSubmit(onSubmit)}
+                            >
+                                ĐĂNG KÝ
+                            </button>
+                        </div>
+                    </form>
+
+                    <div className="auth-form__socials">
+                        <a href="" className="auth-form__socials--facebook btn btn--size-s btn--with-icon">
+                            <i className="auth-form__socials-icon fab fa-facebook-square"></i>
+                            <span className="auth-form__socials-title">
+                                Kết nối với Facebook
+                            </span>
+                        </a>
+                        <a href="" className="auth-form__socials--google btn btn--size-s btn--with-icon">
+                            <i className="auth-form__socials-icon fab fa-google"></i>
+                            <span className="auth-form__socials-title">
+                                Kết nối với Google
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default Register;
