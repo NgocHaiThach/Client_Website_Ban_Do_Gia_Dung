@@ -1,50 +1,55 @@
-import { ErrorMessage, Field } from "formik";
-import React from "react";
-import "./style.css";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { FormFeedback, FormGroup, Input, Label } from 'reactstrap';
+import { ErrorMessage } from 'formik';
 
-const TextField = (props) => {
-    const { as, type, label, name, rows, placeholder, note, required, classNameLabel, classNameInput, classNameDiv } = props;
-    return (
-        <div className={`mb-3 ${classNameDiv}`}>
-            {/* label section */}
-            <label
-                htmlFor={name}
-                className={`text-muted mb-1 ${classNameLabel}`}
-                style={{ fontSize: "1rem", fontWeight: "500" }}
-            >
-                <span>{label}</span>
-                <span className="text-danger">{required ? "*" : ""}</span>
-            </label>
+TextField.propTypes = {
+    field: PropTypes.object.isRequired,
+    form: PropTypes.object.isRequired,
 
-            {/* input section */}
-            <Field
-                as={as} // as for textarea type
-                rows={rows} // rows for textarea type
-                type={type} // type for text, email, password,...
-                name={name}
-                placeholder={placeholder}
-                className={`text-field ${classNameInput}`}
-            />
-
-            {/* note */}
-            <p
-                className="text-muted"
-                style={{
-                    fontSize: "0.75rem",
-                }}
-            >
-                {note}
-            </p>
-
-            {/* error section */}
-            <ErrorMessage
-                component="div"
-                name={name}
-                className="text-danger"
-                style={{ fontSize: "0.875rem" }}
-            ></ErrorMessage>
-        </div>
-    );
+    type: PropTypes.string,
+    label: PropTypes.string,
+    placeholder: PropTypes.string,
+    disabled: PropTypes.string,
 };
+
+TextField.defaultProps = {
+    type: 'text',
+    label: '',
+    placeholder: '',
+    disabled: false,
+}
+
+function TextField(props) {
+    const {
+        field, form,
+        type, label, placeholder, disabled,
+
+    } = props
+    const { name, value, onChange, onBlur } = field
+    const { errors, touched } = form
+    const showError = errors[name] && touched[name]
+    return (
+        <FormGroup>
+            {label && <Label for={name}>{label}</Label>}
+            <Input
+                id={name}
+
+                // = [..field]
+                name={name}
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+
+                type={type}
+                disabled={disabled}
+                placeholder={placeholder}
+                invalid={showError}
+            />
+            {/* {showError && <FormFeedback>{errors[name]}</FormFeedback>} */}
+            <ErrorMessage name={name} component={FormFeedback} />
+        </FormGroup>
+    );
+}
 
 export default TextField;
