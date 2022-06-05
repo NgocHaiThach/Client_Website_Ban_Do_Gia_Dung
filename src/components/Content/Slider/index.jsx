@@ -1,9 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getListClassification } from '../../../redux/classifications/apiFunctionClassification';
+import callApi from '../../../utils/callApi';
 import { SliderData } from './SliderData';
 import SliderImage from './SliderImage';
 import './style.css';
 
 function Slider(props) {
+    const listClassification = useSelector(state => state.classification.list);
+    // const getListCategoryOfClassifi = async () => {
+    //     try {
+    //         const res = await callApi(`/classifications/${classificationId}`, 'GET', null)
+    //         setCategorise(res.data.result.categories)
+    //     }
+    //     catch (err) {
+    //         console.log(err)
+    //     }
+    // }
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        // getListCategoryOfClassifi();
+        getListClassification(dispatch);
+    }, [])
     return (
         <>
             {/* bar  */}
@@ -21,7 +40,19 @@ function Slider(props) {
                                 <ul className="nav-list">
                                     <li className="nav-item">TRANG CHỦ
                                     </li>
-                                    <li className="nav-item">ĐỒ GIA DỤNG
+                                    {listClassification.map((item, index) => (
+                                        <li key={index} className="nav-item">
+                                            {(item.name).toUpperCase()}
+                                            <div className="bar-item_propose nav-item_propose">
+                                                <ul className="bar-item_propose-list">
+                                                    {(item.categories).map((category, i) => (
+                                                        <li key={i} className="bar-item_propose-item">{category.name}</li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    ))}
+                                    {/* <li className="nav-item">ĐỒ GIA DỤNG
                                         <div className="bar-item_propose nav-item_propose">
                                             <ul className="bar-item_propose-list">
                                                 <li className="bar-item_propose-item">NỒI NHÔM</li>
@@ -78,9 +109,9 @@ function Slider(props) {
                                     </li>
                                     {/* <li className="nav-item">MADE BY ANGELS
                                     </li> */}
-                                    <li className="nav-item">ĐIỆN DÂN DỤNG
+                                    {/* <li className="nav-item">ĐIỆN DÂN DỤNG
 
-                                    </li>
+                                    </li>  */}
                                     <li className="nav-item">TIN TỨC
                                     </li>
                                 </ul>

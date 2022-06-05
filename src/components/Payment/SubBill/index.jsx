@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { formatPrice } from '../../../utils/format';
+import { Toast } from 'react-bootstrap';
+
 
 function SubBill(props) {
     //get listCart from store
+    const [show, setShow] = useState(false);
     const listCart = useSelector(state => state.cartList.list);
 
     const [typePay, setTypePay] = useState(1);
@@ -87,12 +90,14 @@ function SubBill(props) {
                     ))}
 
                 </div>
+
                 <div
                     // onClick={handleSubmit(onSubmit)}
                     className="payment__info-button">
                     {/* to={`/bill/${idUser}`} */}
                     <button
                         className="btn-confirm"
+                        onClick={() => setShow(true)}
                     >
                         Đặt Hàng
                     </button>
@@ -101,6 +106,18 @@ function SubBill(props) {
                     Cảm ơn quý khách đã ủng hộ Ottel shop!
                 </div>
             </div>
+            <Toast onClose={() => setShow(false)} show={show} delay={3000} autohide>
+                <Toast.Header>
+                    <img
+                        src="holder.js/20x20?text=%20"
+                        className="rounded me-2"
+                        alt=""
+                    />
+                    <strong className="me-auto">Bootstrap</strong>
+                    <small>11 mins ago</small>
+                </Toast.Header>
+                <Toast.Body>Woohoo, you're reading this text in a Toast!</Toast.Body>
+            </Toast>
         </>
     );
 }

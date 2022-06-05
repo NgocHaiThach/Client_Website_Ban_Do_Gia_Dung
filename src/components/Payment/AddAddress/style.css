@@ -1,0 +1,19 @@
+.input-field {
+    font-size: 18px;
+    width: 100%;
+    outline: none;
+    padding: 10px 10px 10px 10px;
+}
+
+.toast-address {
+    position: relative;
+    background-color: rgb(144, 231, 140);
+    float: right;
+    z-index: 999;
+    height: 50px;
+    width: 200px;
+    top: 90%;
+    right: 100px;
+    border-radius: 5px;
+    font-size: 14px;
+}

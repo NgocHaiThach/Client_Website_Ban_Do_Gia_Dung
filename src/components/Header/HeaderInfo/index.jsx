@@ -12,6 +12,7 @@ import { logout } from '../../../redux/infoUserLogin/infoUserLoginSlice';
 function HeaderInfo(props) {
     const history = useHistory();
     const dispatch = useDispatch();
+    const accessUser = cookies.load("userToken");
 
 
     const accessToken = useSelector(state => state.infoUserLogin);
@@ -46,7 +47,7 @@ function HeaderInfo(props) {
                                 <Link to='/cart'>Đơn hàng của tôi</Link>
                             </li>
                             <li className="header-info_about-item">
-                                <Link to='/'>Thanh toán</Link>
+                                <Link to={`/payment/${accessUser.userId}`}>Thanh toán</Link>
                             </li>
 
                             {accessToken === undefined ?

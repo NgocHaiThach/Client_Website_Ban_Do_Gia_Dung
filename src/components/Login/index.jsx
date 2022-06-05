@@ -87,7 +87,7 @@ function Login(props) {
     }
 
     const passgg = (googleData) => {
-        console.log(googleData);
+        alert(googleData);
     }
 
     const failgg = (result) => {
@@ -172,7 +172,7 @@ function Login(props) {
                             </span>
                         </a> */}
                         <GoogleLogin
-                            clientId="455289815461-sr70k4eepjv3bplj5sj400n1bb0lhdv4.apps.googleusercontent.com"
+                            clientId="638264711706-8jb62dnthda73codtm13f6limn78ckh4.apps.googleusercontent.com"
                             buttonText="Login"
                             onSuccess={passgg}
                             onFailure={failgg}

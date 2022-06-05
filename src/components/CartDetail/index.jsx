@@ -113,15 +113,15 @@ function CartDetail(props) {
                     <div className="row">
                         <div className="col l-12 m-12 c-12">
                             <div className="totals">
-                                <div className="totals-item">
+                                {/* <div className="totals-item">
                                     <label>Tổng:</label>
                                     <div className="totals-value" >{formatPrice(totalPrice)}</div>
-                                </div>
+                                </div> */}
 
-                                <div className="totals-item">
+                                {/* <div className="totals-item">
                                     <label>Giao Hàng:</label>
                                     <div className="totals-value" >50.000đ</div>
-                                </div>
+                                </div> */}
                                 <div className="totals-item totals-item-total">
                                     <label>Tổng Cộng:</label>
                                     <div className="totals-value total-grand">{formatPrice(totalPrice)}</div>

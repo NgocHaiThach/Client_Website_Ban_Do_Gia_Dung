@@ -22,16 +22,16 @@ function ProductContainer({ listClassification }) {
                             <div className="product-title">
                                 <h3>{classification.name}</h3>
                                 <div className="product-change">
-                                    <p id="title2" className="product-change-title active">HÀNG MỚI VỀ</p>
-                                    <p id="title2" className="product-change-title ">BÁN CHẠY NHẤT</p>
-                                    <div className="product-change-arrow">
+                                    {/* <p id="title2" className="product-change-title active">HÀNG MỚI VỀ</p>
+                                    <p id="title2" className="product-change-title ">BÁN CHẠY NHẤT</p> */}
+                                    {/* <div className="product-change-arrow">
                                         <i className="fas fa-angle-left"></i>
                                         <i className="fas fa-angle-right"></i>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                             {/* {classification && <Content classificationId={classification.classificationId} />} */}
-                            {classification.classificationId && <ProductContent classificationId={classification.classificationId} />}
+                            {classification.classificationId && <ProductContent classification={classification} />}
                         </div>
                     ))}
 

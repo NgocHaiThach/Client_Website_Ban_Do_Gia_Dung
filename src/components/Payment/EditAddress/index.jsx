@@ -1,60 +1,208 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import * as yup from 'yup';
 import callApi from '../../../utils/callApi';
 import InputProvinces from '../../InputProvinces';
 import cookies from 'react-cookies';
+import { editAddressByUser } from '../../../redux/address/apiFunctionAddress';
+import { useDispatch } from 'react-redux';
+import * as Yup from "yup";
+import axios from 'axios';
+import { Form, Formik } from 'formik';
+import TextField from '../../TextField';
+import SelectField2 from '../../SelectField2/SelectField2';
+import { Button } from 'react-bootstrap';
+
 
 
 function EditAddress({
     setTonggleEdit, tonggleEdit,
-    // valueProvince, setValueProvince,
-    // valueDistrict, setValueDistrict,
-    // valueWard, setValueWard,
     address
 }) {
-    const schema = yup.object().shape({
-        name: yup.string().required().max(50),
-        phone: yup.string().required().min(10).max(10),
-        note: yup.string().required(),
-    }).required();
-    // use React hook form
-    const { register, handleSubmit, formState: { errors } } = useForm({
-        resolver: yupResolver(schema)
+    const escFunction = useCallback((event) => {
+        if (event.keyCode === 27) {
+            setTonggleEdit(!tonggleEdit);
+        }
+    }, []);
+    useEffect(() => {
+        document.addEventListener("keydown", escFunction);
+
+        return () => {
+            document.removeEventListener("keydown", escFunction);
+        };
+    }, [escFunction]);
+
+    const validate = Yup.object({
+        name: Yup.string()
+            .max(50, "Tên phải ngắn hơn 50 ký tự")
+            .required("Trường này bắt buộc"),
+        province: Yup.string()
+            .required("Trường này bắt buộc"),
+        district: Yup.string()
+            .required("Trường này bắt buộc"),
+        ward: Yup.string()
+            .required("Trường này bắt buộc"),
+        detail: Yup.string()
+            .required("Trường này bắt buộc"),
+        note: Yup.string()
+            .required("Trường này bắt buộc"),
+        phone: Yup.string()
+            .required("Trường này bắt buộc"),
     });
-
-    const [valueProvince, setValueProvince] = useState(address.province);
-    const [valueDistrict, setValueDistrict] = useState(address.district);
-    const [valueWard, setValueWard] = useState(address.ward);
-
     const accessUser = cookies.load("userToken");
 
-    console.log(address)
-    const handleEditAddress = async (name, phone, province, district, ward, note) => {
-        const res = callApi("/addresses/updateaddress", "PUT", {
-            addressId: address.addressId,
-            customerId: accessUser.userId,
-            name: name,
-            company: "VTDCompany",
-            phone: phone,
-            province: province,
-            district: district,
-            ward: ward,
-            detail: "1173 Kha Vạn Cân",
-            note: note,
-            type: true,
-            default: true
+    const dispatch = useDispatch();
+    const [listProv, setListProv] = useState(null);
+    const [listDisApi, setListDisApi] = useState(null);
+    const [listWardApi, setListWardApi] = useState(null);
+
+
+    //get distric in localstore
+    const getDistrictLocalStorage = () => {
+        let district = localStorage.getItem('district')
+        if (district) {
+            return JSON.parse(localStorage.getItem('district'))
+        } else {
+            return undefined
+        }
+    };
+    const idDistrict = getDistrictLocalStorage()?.value;
+
+    //get local ward choosed
+    const getWardLocalStorage = () => {
+        let ward = localStorage.getItem('ward')
+        if (ward) {
+            return JSON.parse(localStorage.getItem('ward'))
+        } else {
+            return undefined
+        }
+    };
+    const idWard = getWardLocalStorage()?.value;
+
+    //get list provinces
+    const getApiProvinces = async () => {
+        const res = await axios({
+            method: 'POST',
+            url: `https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/province`,
+            data: null,
+            headers: {
+                token: `300c5a62-ded5-11ec-ac64-422c37c6de1b`
+            },
         })
-        setTonggleEdit(!tonggleEdit)
-        //cần get lại list addresses
+            .catch(err => {
+                console.error(err)
+            })
+        setListProv(res.data.data);
+    };
+
+    //get list distric
+    const getApiDistricts = async () => {
+        const res = await axios({
+            method: 'POST',
+            url: `https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/district`,
+            data: null,
+            headers: {
+                token: `300c5a62-ded5-11ec-ac64-422c37c6de1b`
+            },
+        })
+            .catch(err => {
+                console.error(err)
+            })
+        setListDisApi(res.data.data);
+    };
+
+    //get list ward
+    const getApiWards = async () => {
+        const res = await axios({
+            method: 'POST',
+            url: `https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/ward?district_id`,
+            data: {
+                district_id: +idDistrict,
+            },
+            headers: {
+                token: `300c5a62-ded5-11ec-ac64-422c37c6de1b`
+            },
+        })
+            .catch(err => {
+                console.error(err)
+            })
+        setListWardApi(res.data.data);
+    };
+
+    useEffect(() => {
+        getApiProvinces();
+        getApiDistricts();
+        getApiWards();
+    }, [idDistrict]);
+
+    //rerender 
+    const [reRender, setReRender] = useState();
+    useEffect(() => { }, [reRender]);
+
+    //save local province choosed
+    const getLocalStorage = () => {
+        let province = localStorage.getItem('province')
+        if (province) {
+            return JSON.parse(localStorage.getItem('province'))
+        } else {
+            return undefined
+        }
+    };
+
+    // define list provinces
+    let PROVINCES_OPTIONS = [];
+
+    //loop push name
+    for (const key in listProv) {
+        PROVINCES_OPTIONS.push(listProv[key]);
     }
-    //handleSubmit
-    const onSubmit = (data) => {
-        const { name, phone, note } = data;
-        handleEditAddress(name, phone, valueProvince, valueDistrict, valueWard, note)
-        // console.log('ádad', { ...data, province: valueProvince, district: valueDistrict, ward: valueWard });
-    }
+
+    // loop define object
+    PROVINCES_OPTIONS = PROVINCES_OPTIONS.map((item, i) => {
+        return {
+            value: +item?.ProvinceID,
+            label: item?.ProvinceName,
+        }
+    });
+
+    //define list object districts
+    let districtInCity = [];
+
+    const idProv = getLocalStorage()?.value;
+    districtInCity = listDisApi?.filter((item) => {
+        return item?.ProvinceID === +idProv
+    });
+
+    //define list name
+    let DISTRICTS_OPTIONS = [];
+
+
+    // //loop in array object and push district name
+    for (const key in districtInCity) {
+        DISTRICTS_OPTIONS.push(districtInCity[key]);
+    };
+
+    // //loop define save objetc name
+    DISTRICTS_OPTIONS = DISTRICTS_OPTIONS.map((item, i) => {
+        return {
+            value: item.DistrictID,
+            label: item.DistrictName,
+        }
+    });
+
+    // //define list object wards
+    let wardInDistrict = [];
+
+    // //loop ward to object
+    wardInDistrict = listWardApi?.map((item, i) => {
+        return {
+            value: item.WardCode,
+            label: item.WardName,
+        }
+    });
+
+    const [show, setShow] = useState(false);
     return (
         <>
             <div className="modal" >
@@ -62,79 +210,152 @@ function EditAddress({
                 </div>
                 <div className="modal__body">
                     <div className="auth-form-address">
-                        <form
-                            onSubmit={handleSubmit(onSubmit)}
-                            className="auth-form__container-address">
-                            <div className="auth-form__header-address">
-                                <h3 className="auth-form__heading-address">THÊM ĐỊA CHỈ</h3>
-                            </div>
-                            <div className="auth-form__form">
-                                <div className="auth-form__name-phone">
+                        <Formik
+                            initialValues={
+                                {
+                                    name: address.name || "",
+                                    province: "",
+                                    district: "",
+                                    ward: "",
+                                    detail: address.detail || "",
+                                    note: address.note || "",
+                                    phone: address.phone || "",
+                                }
+                            }
+                            validationSchema={validate}
+                            onSubmit={(values) => {
+                                const {
+                                    name,
+                                    province,
+                                    district,
+                                    ward,
+                                    detail,
+                                    note,
+                                    phone
+                                } = values;
+                                // console.log(
+                                //     name,
+                                //     province,
+                                //     district,
+                                //     ward,
+                                //     detail,
+                                //     note,
+                                //     phone,
+                                //     idProv, idDistrict, idWard
+                                // );
+
+                                editAddressByUser(dispatch,
+                                    address.addressId,
+                                    accessUser.userId,
+                                    name,
+                                    phone,
+                                    province, district, ward,
+                                    note,
+                                    detail,
+                                    idProv, idDistrict, idWard
+                                )
+
+                                setShow(true);
+                            }}
+                        >
+                            {(formik) => (
+                                <Form className="auth-form__container-address">
+                                    <div className="auth-form__header-address">
+                                        <h3 className="auth-form__heading-address">THÊM ĐỊA CHỈ</h3>
+                                    </div>
+                                    <TextField
+                                        label="Tên"
+                                        name="name"
+                                        type="text"
+                                        className="input-field"
+                                        placeholder="Tên..."
+                                    />
+
+                                    <TextField
+                                        label="Tên"
+                                        name="phone"
+                                        type="text"
+                                        className="input-field"
+                                        placeholder="Số điện thoại..."
+                                    />
+
+                                    <SelectField2
+                                        setReRender={setReRender}
+                                        getLocalStorage={getLocalStorage}
+                                        label="Tỉnh/Thành Phố"
+                                        name="province"
+                                        type="option"
+                                        options={PROVINCES_OPTIONS}
+                                        dtf={address.provinceName}
+                                        valuField={address.provinceId}
+                                    />
+
+                                    <SelectField2
+                                        setReRender={setReRender}
+                                        getDistrictLocalStorage={getDistrictLocalStorage}
+                                        label="Quận/Huyện"
+                                        name="district"
+                                        type="option"
+                                        options={DISTRICTS_OPTIONS}
+                                        dtf={address.districtName}
+                                        valuField={address.districtId}
+                                    />
+
+                                    <SelectField2
+                                        label="Xã/Phường"
+                                        name="ward"
+                                        type="option"
+                                        options={wardInDistrict}
+                                        getWardLocalStorage={getWardLocalStorage}
+                                        setReRender={setReRender}
+                                        dtf={address.wardName}
+                                        valuField={address.wardId}
+                                    />
+
+                                    <TextField
+                                        label="Số nhà/Đường"
+                                        name="detail"
+                                        type="text"
+                                        className="input-field"
+                                        placeholder="Số nhà/Đường..."
+                                    />
+
+                                    <TextField
+                                        label="Ghi Chú"
+                                        name="note"
+                                        type="text"
+                                        className="input-field"
+                                        placeholder="Ghi chú..."
+                                    />
+                                    <div className="auth-form__controls">
 
 
-                                    <p className="auth-form__group">
-                                        <input
-                                            name="name"
-                                            {...register("name")}
-                                            type="text"
-                                            placeholder="Họ tên"
-                                            className="auth-form__iput"
-                                            defaultValue={address.name}
-                                        />
-                                    </p>
+                                        <Button
+                                            variant="secondary"
+                                            className="btn btn--primary auth-form__controls-login"
+                                            type='reset'
+                                            onClick={() => setTonggleEdit(!tonggleEdit)}
+                                        >
 
+                                            Trở về
+                                        </Button>
+                                        <Button
+                                            variant="primary"
+                                            className="btn btn--primary auth-form__controls-login"
+                                            type="submit"
+                                        // onClick={() => handleShow()}
+                                        >
+                                            Thêm Địa Chỉ
 
-                                    <p className="auth-form__group">
-                                        <input
-                                            name="password"
-                                            {...register("phone")}
-                                            type="text"
-                                            placeholder="Số điện thoại"
-                                            className="auth-form__iput"
-                                            defaultValue={address.phone}
-                                        />
-                                    </p>
-                                </div>
-
-                                <div className="auth-form__validate">
-                                    {errors?.name?.type === "required" && <p className="valid-form__message">* Vui lòng nhập Họ tên</p>}
-                                    {errors?.name?.type === "max" && <p className="valid-form__message">* Họ tên tối đa 30 ký tự</p>}
-                                    {errors?.phone?.type === "required" && <p className="valid-form__message validate__left">* Vui lòng nhập số điện thoại</p>}
-                                    {errors?.phone?.type === "min" && <p className="valid-form__message validate__left ">* Vui lòng nhập đúng số điện thoại</p>}
-                                    {errors?.phone?.type === "max" && <p className="valid-form__message validate__left">* Vui lòng nhập đúng số điện thoại</p>}
-                                </div>
-
-                                <InputProvinces setValueProvince={setValueProvince}
-                                    setValueDistrict={setValueDistrict}
-                                    setValueWard={setValueWard}
-                                    province={address.province}
-                                    district={address.district}
-                                    ward={address.ward} />
-                                <textarea className="payment__address-note__input-address"
-                                    placeholder="Địa chỉ cụ thể.."
-                                    defaultValue={`${address.detail}, ${address.note}`}
-                                    {...register("note")}
-                                />
-                                {errors?.note?.type === "required" && <p className="valid-form__message validate__left">* Vui lòng nhập địa chỉ cụ thể</p>}
-                            </div>
-
-                            <div className="auth-form__controls">
-                                <button onClick={() => setTonggleEdit(!tonggleEdit)}
-                                    className="btn btn--primary auth-form__controls-login"
-                                >
-                                    Trở Lại
-                                </button>
-                                <button
-                                    // onClick={handleSubmit(onSubmit)}
-                                    type="submit"
-                                    className="btn btn--primary auth-form__controls-login"
-                                >
-                                    Thêm Địa Chỉ
-                                </button>
-                            </div>
-                        </form>
+                                        </Button>
+                                    </div>
+                                </Form>
+                            )}
+                        </Formik>
                     </div>
+
                 </div>
+
             </div>
         </>
     );

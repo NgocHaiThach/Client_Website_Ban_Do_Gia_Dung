@@ -91,7 +91,8 @@
 
 .info-store_about-img,
 .product-content_baner-img {
-    width: 100%;
+    height: 220px;
+    width: 300px;
     object-fit: contain;
-    margin-top: 8px;
+    margin-top: 95px;
 }

@@ -7,6 +7,8 @@ import SliderImage from '../Content/Slider/SliderImage';
 import './style.css';
 import cookies from 'react-cookies';
 import { addProductToCartByUser } from '../../redux/cart/apiFunctionCart';
+import { Toast } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 
 
 
@@ -18,8 +20,8 @@ function ProductDetail(props) {
 
     const getProductById = async () => {
         try {
-            const res = await callApi(`/products/${id}`, 'GET', null)
-            setProduct(res.data.result)
+            const res = await callApi(`/products/${id}`, 'GET', null);
+            setProduct(res.data.result);
         }
         catch (err) {
             console.log(err)
@@ -33,16 +35,30 @@ function ProductDetail(props) {
 
     const [indexImg, setIndexImg] = useState(0);
     const dispatch = useDispatch();
+    const [quantity, setQuantity] = useState(1);
+    // const [show, setShow] = useState(false);
 
     const handleAddToCard = () => {
-        addProductToCartByUser(dispatch, accessUser.userId, id, 1);
+        addProductToCartByUser(dispatch, accessUser.userId, id, quantity);
+
+        toast.info('Thêm vào giỏ hàng thành công!', {
+            position: "bottom-right",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
     }
 
     // let [quantity, setQuantity] = useState(1);
 
+
     return (
         <>
             <div className="card-wrapper">
+
                 <div className="card">
                     {/* card left  */}
                     <div className="product-imgs">
@@ -77,143 +93,43 @@ function ProductDetail(props) {
                             <h2>Chi tiết sản phẩm: </h2>
 
                             <ul>
-                                {/* {(product.highlights)?.map((item, index) => {
-                                    <li><span>{item}</span></li>
-                                })} */}
-                                <li><span>Lòng nồi phủ chống dính cao cấp an toàn cho sức khỏe</span></li>
-                                <li><span>Công nghệ nấu 3D (ủ ấm 3 chiều) giữ cơm ngon suốt 48 giờ</span></li>
-                                <li><span>Thân nồi bằng nhựa PP cách nhiệt, siêu bền</span></li>
-                                <li><span>Đường kính mâm nhiệt lớn, tỏa nhiệt đều, cơm ngon hơn</span></li>
-                                <li><span>Kiểu dáng trẻ trung, có quai xách chống bỏng tiện dụng</span></li>
+                                {product?.highlights?.map((item, index) => (
+                                    <li key={index}><span>{item}</span></li>
+                                ))}
                             </ul>
                         </div>
-                        đ
                         <div className="purchase-info">
-                            <input type='number' min='0' defaultValue="1" />
+                            <input type='number'
+                                min='0'
+                                defaultValue={quantity}
+                                onChange={(e) => setQuantity(e.target.value)} />
                             <button type="button"
                                 onClick={handleAddToCard}
                                 className="btn-add-to-card">
-                                Add to Cart <i className="fas fa-shopping-cart"></i>
+                                Thêm vào giỏ hàng
+                                <i style={{ marginLeft: '8px' }} className="fas fa-shopping-cart"></i>
                             </button>
 
                         </div>
 
-                        <div className="social-links">
-                            <p>Share At: </p>
-                            <a href="#">
-                                <i className="fab fa-facebook-f"></i>
-                            </a>
-                            <a href="#">
-                                <i className="fab fa-twitter"></i>
-                            </a>
-                            <a href="#">
-                                <i className="fab fa-instagram"></i>
-                            </a>
-                            <a href="#">
-                                <i className="fab fa-whatsapp"></i>
-                            </a>
-                            <a href="#">
-                                <i className="fab fa-pinterest"></i>
-                            </a>
-                        </div>
                     </div>
                     <div className="">
                         <div className="product-params">
                             <div className="params-title">THÔNG SỐ KỸ THUẬT</div>
                             <table>
                                 <tbody>
-
-
-                                    <tr>
-                                        <td>Dung tích nồi</td>
-                                        <td>1.8 L</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Chế độ</td>
-                                        <td>Nấu cơm, Giữ ấm</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Màu sắc</td>
-                                        <td>Trắng – Xanh lá</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Loại nồi</td>
-                                        <td>Nắp liền</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Chất liệu vỏ nồi</td>
-                                        <td>Nhựa PP siêu bền</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Chất liệu lòng nồi</td>
-                                        <td>Hợp kim nhôm phủ chống dính cao cấp</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Công suất</td>
-                                        <td>700 W</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Điện áp</td>
-                                        <td>220V/50HZ</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Thời gian giữ ấm</td>
-                                        <td>48 giờ</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Hẹn giờ</td>
-                                        <td>Không</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Màn hình</td>
-                                        <td>Không</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Bảng điều khiển</td>
-                                        <td>Nút gạt</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dây điện</td>
-                                        <td>Dây rời</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Phụ kiện</td>
-                                        <td>Muỗng lấy cơm – Cốc đong gạo</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Đặc điểm khác</td>
-                                        <td>- Giữ ấm lâu
-                                            - Quai xách tiện dụng, chống bỏng</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Xuất xứ</td>
-                                        <td>Việt Nam</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Trọng lượng</td>
-                                        <td>4.3 kg</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Kích thước đóng hộp</td>
-                                        <td>365 x 330 x 305 (mm)</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Bảo hành</td>
-                                        <td>24 tháng</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Số người ăn</td>
-                                        <td>4 - 6 người</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Công nghệ nấu</td>
-                                        <td>3D (tỏa nhiệt từ 3 hướng)</td>
-                                    </tr>
+                                    {product?.specifications?.map((item, index) => (
+                                        <tr key={index}>
+                                            <td>{item.name}</td>
+                                            <td>{item.value}</td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
+
             </div>
         </>
     );

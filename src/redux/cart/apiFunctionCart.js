@@ -22,7 +22,7 @@ export const addProductToCartByUser = async (dispatch,idUser, idProduct,quantity
         const res = await callApi(`/carts/addcart`, 'POST', {
             customerId: idUser,
             productId: idProduct,
-            quantity: 1,
+            quantity: quantity,
         });
         getListCartByIdUser(dispatch,idUser)
     }

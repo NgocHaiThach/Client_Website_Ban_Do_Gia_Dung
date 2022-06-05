@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 import { getListClassification } from '../../../../redux/classifications/apiFunctionClassification';
 import callApi from '../../../../utils/callApi';
 
-function ProductContent({ classificationId }) {
+function ProductContent({ classification }) {
 
     const [categories, setCategorise] = useState([]);
 
     const getListCategoryOfClassifi = async () => {
         try {
-            const res = await callApi(`/classifications/${classificationId}`, 'GET', null)
+            const res = await callApi(`/classifications/${classification.classificationId}`, 'GET', null)
             setCategorise(res.data.result.categories)
         }
         catch (err) {
@@ -19,7 +19,7 @@ function ProductContent({ classificationId }) {
     }
 
     const dispatch = useDispatch();
-    const listClassification = useSelector(state => state.classification.list);
+
     useEffect(() => {
         getListCategoryOfClassifi();
         getListClassification(dispatch);
@@ -31,7 +31,13 @@ function ProductContent({ classificationId }) {
                 <div className="col l-2 m-2 c-12">
                     <ul className="product-content_list">
                         {categories.map((item, index) => (
-                            <li key={index} className="product-content_item">{item.name}</li>
+                            <li key={index} style={{ marginTop: '15px' }}>
+                                <Link to={`/category/${item.categoryId}`}
+                                    style={{ textDecoration: 'none', fontWeight: '500' }}
+                                    key={index} className="product-content_item">
+                                    {item.name}
+                                </Link>
+                            </li>
                         ))}
                         {/* <li className="product-content_item">Nồi inox</li>
                         <li className="product-content_item">Nồi áp suất</li>
@@ -42,12 +48,12 @@ function ProductContent({ classificationId }) {
                 </div>
 
                 <div className="col l-4 m-0 c-0">
-                    {/* {listClassification.map((item, index) => ( */}
+
                     <img className="product-content_baner-img"
                         // src={item.imageMenu}
-                        src="https://sunhouse.com.vn/pic/banner/_16A4957-1(1)(1).png"
+                        src={classification.imageMenu}
+                        // src=""
                         alt="tokyolife" />
-                    {/* ))} */}
                 </div>
 
                 <div className="col l-6 m-10 c-12">
