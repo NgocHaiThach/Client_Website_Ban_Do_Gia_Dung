@@ -1,0 +1,102 @@
+.location__info {
+    width: 75%;
+    margin-left: 6px;
+    display: flex;
+    flex-direction: column;
+}
+
+.location__info-header {
+    font-size: 20px;
+    line-height: 32px;
+    font-weight: 400;
+    margin: 0px 0px 12px;
+}
+
+.location__info-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 15px;
+    background-color: rgb(244, 244, 244);
+}
+
+.location__info-add {
+    cursor: pointer;
+    background-color: rgb(255, 255, 255);
+    font-size: 15px;
+    height: 60px;
+    border: 1px dashed rgb(216, 216, 216);
+    margin: 0px 0px 10px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+
+.location__info-icon {
+    color: rgb(120, 120, 120);
+    font-size: 28px;
+    margin: 0px 20px;
+}
+
+.location__info-item {
+    background-color: rgb(255, 255, 255);
+    padding: 17px;
+    border-radius: 4px;
+    margin: 0px 0px 10px;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    font-size: 15px;
+    line-height: 19px;
+}
+
+.location__item-name {
+    font-size:18px;
+    color: rgb(27, 168, 255);
+    text-transform: uppercase;
+    margin: 0px 0px 10px;
+}
+
+.location__item-name > span  {
+    font-size: 15px;
+    margin: 0px 0px 0px 15px;
+    display: inline-block;
+    -webkit-box-align: center;
+    align-items: center;
+    color: rgb(38, 188, 78);
+    text-transform: none;
+}
+
+.location__item- > span span {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0px 0px 0px 5px;
+}
+
+.location__item-address {
+    margin: 0px 0px 5px;
+}
+.location__item-address span {
+    color: rgb(120, 120, 120);
+}
+
+.location__item-phone {
+    margin: 0px 0px 5px;
+}
+.location__item-phone span {
+    color: rgb(120, 120, 120);
+}
+
+.location__action-edit {
+    cursor: pointer;
+    font-size: 14px;
+    color: rgb(27, 168, 255);
+    display: inline-block;
+    padding: 6px 12px;
+}
+
+.location__action-edit:hover {
+    text-decoration:underline;
+}

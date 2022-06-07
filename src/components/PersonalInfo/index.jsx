@@ -1,12 +1,15 @@
-import React from 'react';
-import { AiOutlineUser } from "react-icons/ai";
+import React, { useState } from 'react';
+import { AiOutlineUser, AiOutlinePlus, AiOutlineCheckCircle } from "react-icons/ai";
 import { FaClipboardList } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import BillList from './BillList';
+import Location from './Location';
+import Info from './Info';
 import './style.css';
 
 function PersonalInfo(props) {
+    const [display, setDisplay] = useState(1);
     return (
         <div className="grid wide">
             <div className="personal-container">
@@ -20,36 +23,38 @@ function PersonalInfo(props) {
                         </div>
                     </div>
                     <ul className="sidebar__list-link">
-                        <li className="sidebar__item-link">
-                            <Link to="/">
-                                <AiOutlineUser className='sidebar__icon' />
-                                <span>
-                                    Thông tin tài khoản
-                                </span>
-                            </Link>
+                        <li className={display === 1 ? `sidebar__item-link active-link` : `sidebar__item-link`}
+                            onClick={() => setDisplay(1)}
+                        >
+                            <AiOutlineUser className='sidebar__icon' />
+                            <span>
+                                Thông tin tài khoản
+                            </span>
+
                         </li>
-                        <li className="sidebar__item-link">
-                            <Link to="/">
-                                <FaClipboardList className='sidebar__icon' />
-                                <span>
-                                    Quản lý đơn hàng
-                                </span>
-                            </Link>
+                        <li className={display === 2 ? `sidebar__item-link active-link` : `sidebar__item-link`}
+                            onClick={() => setDisplay(2)}
+                        >
+                            <FaClipboardList className='sidebar__icon' />
+                            <span>
+                                Quản lý đơn hàng
+                            </span>
+
                         </li>
-                        <li className="sidebar__item-link">
-                            <Link to="/">
-                                <MdLocationOn className='sidebar__icon' />
-                                <span>
-                                    Địa chỉ
-                                </span>
-                            </Link>
+                        <li className={display === 3 ? `sidebar__item-link active-link` : `sidebar__item-link`}
+                            onClick={() => setDisplay(3)}
+                        >
+                            <MdLocationOn className='sidebar__icon' />
+                            <span>
+                                Địa chỉ
+                            </span>
+
                         </li>
                     </ul>
                 </div>
-                {/* <Info /> */}
-                <BillList />
-
-
+                {display === 1 ? <Info /> : null}
+                {display === 2 ? <BillList /> : null}
+                {display === 3 ? <Location /> : null}
             </div>
         </div >
     );
