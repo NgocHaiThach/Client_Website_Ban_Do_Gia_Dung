@@ -3,26 +3,29 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteAddressByUser } from '../../../redux/address/apiFunctionAddress';
 import cookies from 'react-cookies';
 import callApi from '../../../utils/callApi';
+import { formatPrice } from '../../../utils/format';
+import { setPaymentInfo } from '../../../redux/paymentInfo/paymentInfoSlice';
 
-function AddressInfo({
+function StoreInfo({
     setAddress,
     address,
     setTonggleAdd,
     tonggleAdd,
     setTonggleEdit,
     tonggleEdit,
+    setFee,
+    fee,
 }) {
     const accessUser = cookies.load("userToken");
-
-    //list address init
-    const listAddress = useSelector(state => state.addressList.list);
 
     const dispatch = useDispatch();
 
     //list addressRef to select
     const listAddressRef = useRef(null);
+
     //tonggle display list address
     const [displayAddresses, setDisplayAddresses] = useState(true);
+
     // xử lý click ra ngoài đóng list address?
     useEffect(() => {
         const checkIfClickedOutside = e => {
@@ -36,66 +39,82 @@ function AddressInfo({
             document.removeEventListener("mousedown", checkIfClickedOutside);
         };
     }, [listAddressRef]);
+
     const handleDisplay = () => {
         setDisplayAddresses(!displayAddresses);
     };
-    //handle Delete address user by idAddress
-    const handleDeleteAddressById = async (id) => {
-        deleteAddressByUser(dispatch, id, accessUser.userId);
-        // setShow(true);
-    };
 
-    //  const [listFee, setListFee] = useState([]);
+    //ds store
+    const [listFee, setListFee] = useState([]);
 
-    // const getFeeAddress = async (id) => {
-    //     const res = await callApi("/stores/fee", "POST", {
-    //         customerId: accessUser.userId,
-    //         addressId: id
-    //     });
-    //     // console.log('fee', res);
-    //     setListFee(res.data.result);
-    // }
+    //gia store mac dinh
+    const [itemFee, setItemFee] = useState(null);
+
+    const getFeeAddress = async (id) => {
+        const res = await callApi("/stores/fee", "POST", {
+            customerId: accessUser.userId,
+            addressId: id
+        });
+        // console.log('fee', res);
+        setListFee(res.data.result);
+        setFee(res.data.result[0]?.fee);
+        setItemFee(res.data.result[0]);
+
+    }
+    useEffect(() => {
+        if (address?.addressId) {
+            getFeeAddress(address?.addressId);
+            console.log('a');
+        }
+    }, [address])
     //handle Select
     const handleSelectAddress = (item) => {
         // getFeeAddress(item.addressId);
-        setAddress(item)
+        setItemFee(item)
         setDisplayAddresses(true);
+        setFee(item.fee);
+
+        // const action = setPaymentInfo({
+        //     addressInfo: address,
+        //     fee: item.fee ? item.fee : itemFee.fee,
+        //     storeInfo: item,
+        // })
+        // dispatch(action);
     }
     return (
         <>
             <div className="payment__select-address">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div className="payment__note" onClick={handleDisplay}>
-                        Chọn địa chỉ giao hàng của bạn*
+                        Chọn cửa hàng bạn muốn mua*
                         {/* <i className="fa-solid fa-angle-down" style={{ color: 'red' }}></i> */}
                     </div>
-                    <button onClick={() => setTonggleAdd(!tonggleAdd)} className="btn-add-address">Thêm địa chỉ mới</button>
+                    {/* <button onClick={() => setTonggleAdd(!tonggleAdd)} className="btn-add-address">Thêm địa chỉ mới</button> */}
                 </div>
                 <div ref={listAddressRef} className="footer__language">
                     <div style={{ display: displayAddresses ? "none" : "block" }} className="footer__pseudo">
-                        {listAddress.length > 0 ?
+                        {listFee.length > 0 ?
                             <ul style={{ display: displayAddresses ? "none" : "block" }} className="language__list">
-                                {listAddress?.map((item, index) => (
+                                {listFee?.map((item, index) => (
                                     <div key={index} className="language__item-action">
                                         <li onClick={() => handleSelectAddress(item)} className="language__item">
                                             <span className="language__item-english">
                                                 {index + 1}.{" "}
-                                                {item.name}, {" "}
-                                                {item.phone}, {" "}
-                                                {item.detail}, {" "}
-                                                {item.wardName}, {" "}
-                                                {item.districtName}, {" "}
-                                                {item.provinceName}, {" "}
-                                                {item.note}
+                                                {item.store.name}, {" "}
+                                                {/* {item.store.detail}, {" "} */}
+                                                {item.store.wardName}, {" "}
+                                                {item.store.districtName}, {" "}
+                                                {item.store.provinceName}, {" "}
+                                                {/* {item.note} */}
                                             </span>
                                         </li>
-                                        <span onClick={() => handleDeleteAddressById(item.addressId)} style={{ color: 'red', textDecoration: 'underline', cursor: 'pointer' }}>Xóa</span>
+                                        <span style={{ color: 'red', cursor: 'pointer' }}>{formatPrice(item.fee)}đ</span>
                                     </div>
                                 ))}
                             </ul>
                             :
                             <div style={{ padding: '15px 20px' }}>
-                                Danh  sách địa chỉ trống
+                                Danh sách cửa hàng trống
                             </div>
                         }
                     </div>
@@ -103,42 +122,41 @@ function AddressInfo({
 
             </div>
 
-            {address === null || listAddress.length === 0 ?
+            {address === null || listFee.length === 0 ?
                 <span className="payment__list-form-add" style={{ padding: '15px 20px', fontSize: '20px', marginTop: '10px' }}>
-                    Vui lòng chọn hoặc thêm địa chỉ của bạn
+                    Vui lòng chọn cửa hàng bạn muốn mua
                 </span>
                 :
                 <div className="payment__list-form-add">
 
                     <div className='info'>
                         <div className="info-user">
-                            <span>Họ tên:</span>
-                            <div>{address?.name}</div>
+                            <span>Tên cửa hàng:</span>
+                            <div>{itemFee?.store.name}</div>
                         </div>
-                        <div onClick={() => setTonggleEdit(!tonggleEdit)} className="edit-info">Sửa</div>
+                        {/* <div onClick={() => setTonggleEdit(!tonggleEdit)} className="edit-info">Sửa</div> */}
                     </div>
-                    <div>
+                    {/* <div>
                         <div className="info-user">
-                            <span>Số đt:</span>
-                            <div>{address?.phone}</div>
+                            <span>Số điện thoại:</span>
+                            <div>{itemFee?.store.phone}</div>
                         </div>
-                    </div>
+                    </div> */}
                     <div>
                         <div className="info-user">
                             <span>Đ/chỉ:</span>
                             <div>
-                                {address?.detail},
-                                {" "} {address?.wardName},
-                                {" "} {address?.districtName},
-                                {" "}{address?.provinceName}
+                                {itemFee?.store.wardName},
+                                {" "} {itemFee?.store.districtName},
+                                {" "}{itemFee?.store.provinceName}
                             </div>
                         </div>
                     </div>
                     <div>
                         <div className="info-user">
-                            <span>Ghi Chú:</span>
+                            <span>Giá giao hàng:</span>
                             <div>
-                                {address?.note}
+                                {formatPrice(+itemFee?.fee)}đ
                             </div>
                         </div>
                     </div>
@@ -149,4 +167,4 @@ function AddressInfo({
     );
 }
 
-export default AddressInfo;
+export default StoreInfo;

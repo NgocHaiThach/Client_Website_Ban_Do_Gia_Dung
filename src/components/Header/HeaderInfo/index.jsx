@@ -41,13 +41,13 @@ function HeaderInfo(props) {
 
                         <ul className="header-info_about-list">
                             <li className="header-info_about-item">
-                                <Link to='/'>Tài khoản của tôi</Link>
+                                <Link to={`/personal-info/${accessToken.userId}`}>Tài khoản của tôi</Link>
                             </li>
                             <li className="header-info_about-item">
                                 <Link to='/cart'>Đơn hàng của tôi</Link>
                             </li>
                             <li className="header-info_about-item">
-                                <Link to={`/payment/${accessUser.userId}`}>Thanh toán</Link>
+                                <Link to={`/payment/${accessToken.userId}`}>Thanh toán</Link>
                             </li>
 
                             {accessToken === undefined ?

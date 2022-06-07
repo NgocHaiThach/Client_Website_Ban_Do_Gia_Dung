@@ -19,6 +19,7 @@ const Login = React.lazy(() => import('./components/Login'));
 const Register = React.lazy(() => import('./components/Register'));
 const Bill = React.lazy(() => import('./components/Bill'));
 const Payment = React.lazy(() => import('./components/Payment'));
+const PersonalInfo= React.lazy(() => import('./components/PersonalInfo'));
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <Route exact path="/category/:id" component={ListProductByCategory} />
             <Route exact path="/bill/:iduser" component={Bill} />
             <Route exact path="/payment/:iduser" component={Payment} />
+            <Route exact path="/personal-info/:iduser" component={PersonalInfo} />
             <Chatbox />
           </Switch>
           <Footer />

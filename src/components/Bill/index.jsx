@@ -1,8 +1,20 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { formatPrice } from '../../utils/format';
 import './style.css';
 
 function Bill(props) {
+    const listCart = useSelector(state => state.cartList.list);
+    const paymentInfo = useSelector(state => state.paymentInfo);
+    console.log(paymentInfo.fee)
+    console.log(paymentInfo.addressInfo)
+
+    //total Price of list
+    const totalPriceTemp = listCart.reduce(function (total, item) {
+        return total + item.itemPrice;
+    }, 0);
+
     return (
         <div className="d">
             <div className="bill__title">
@@ -27,26 +39,19 @@ function Bill(props) {
                             <tr>
                                 <th className="w-30 table-body__title">Tên</th>
                                 <th className="w-20 table-body__title">S.Lượng</th>
-                                <th className="w-20 table-body__title">Size</th>
                                 <th className="w-20 table-body__title">Giá</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {/* {listCart.map((item, index) => (
+                            {listCart.map((item, index) => (
                                 <tr key={index}>
-                                    <td className="table-body__item-name w-30 table-body__item min-width ">{item.product.productName}</td>
-                                    <td className="w-20 table-body__item ">{item.quantily}</td>
-                                    <td className="w-20 table-body__item ">{item.sizeName}</td>
-                                    <td className="w-20 table-body__item">
-                                        {item.topping !== null ?
-                                            formatPrice((item.product.price + item.size.price + item.topping.price) * item.quantily)
-                                            :
-                                            formatPrice((item.product.price + item.size.price) * item.quantily)
+                                    <td className="table-body__item-name w-30 table-body__item min-width ">{item.name}</td>
+                                    <td className="w-20 table-body__item ">{item.quantity}</td>
+                                    <td className="w-20 table-body__item ">{formatPrice(item.itemPrice)}đ</td>
 
-                                        }đ
-                                    </td>
+
                                 </tr>
-                            ))} */}
+                            ))}
                         </tbody>
                     </table>
                     <table >
@@ -59,13 +64,13 @@ function Bill(props) {
                             <tr >
                                 <td className="table-body__item-name w-30 table-body__item">Tổng số phụ:</td>
                                 <td className="w-20 table-body__item ">
-                                    {/* {formatPrice(tempPrice)} */}
+                                    {formatPrice(totalPriceTemp)}
                                     đ
                                 </td>
                             </tr>
                             <tr >
                                 <td className="table-body__item-name w-30 table-body__item">Giao nhận hàng:</td>
-                                <td className="w-20 table-body__item ">15.000đ</td>
+                                <td className="w-20 table-body__item ">{formatPrice(paymentInfo.fee)}đ</td>
                             </tr>
                             <tr >
                                 <td className="table-body__item-name w-30 table-body__item"> Phương thức thanh toán:</td>
@@ -76,7 +81,7 @@ function Bill(props) {
                             <tr >
                                 <td className="table-body__item-name w-30 table-body__item">Tổng cộng:</td>
                                 <td className="w-20 table-body__item ">
-                                    {/* {formatPrice(totalPrice)} */}
+                                    {formatPrice(totalPriceTemp + paymentInfo.fee)}
                                     đ</td>
                             </tr>
                         </tbody>

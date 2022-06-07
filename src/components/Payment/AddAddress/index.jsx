@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Button, Toast } from 'react-bootstrap';
 import cookies from 'react-cookies';
 import { useDispatch } from 'react-redux';
+import { toast, ToastContainer } from 'react-toastify';
 import * as Yup from "yup";
 import { addAddressByUser } from '../../../redux/address/apiFunctionAddress';
 import SelectField2 from '../../SelectField2/SelectField2';
@@ -15,6 +16,10 @@ import './style.css';
 function AddAddress({
     setTonggleAdd, tonggleAdd,
 }) {
+    const style = {
+        fontSize: 17
+    };
+
     const escFunction = useCallback((event) => {
         if (event.keyCode === 27) {
             setTonggleAdd(!tonggleAdd);
@@ -136,8 +141,12 @@ function AddAddress({
     useEffect(() => {
         getApiProvinces();
         getApiDistricts();
+    }, []);
+
+    useEffect(() => {
         getApiWards();
     }, [idDistrict]);
+
 
     //rerender 
     const [reRender, setReRender] = useState();
@@ -258,9 +267,15 @@ function AddAddress({
                                     detail,
                                     idProv, idDistrict, idWard);
 
-                                // addStore(dispatch, name, province, district, ward, detail)
-                                // handleShow()
-                                setShow(true);
+                                toast.info('Thêm địa chỉ thành công!', {
+                                    position: "bottom-right",
+                                    autoClose: 3000,
+                                    hideProgressBar: true,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                                });
                             }}
                         >
                             {(formik) => (
@@ -355,29 +370,8 @@ function AddAddress({
 
             </div>
 
-            {/* <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Thông báo</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Thêm Loại Sản Phẩm Thành Công</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="primary" onClick={handleClose}>
-                        Trở về
-                    </Button>
-                </Modal.Footer>
-            </Modal> */}
-            <Toast
-                onClose={() => setShow(false)}
-                show={show} delay={3000} autohide
-                className="toast-address"
-            >
-                <Toast.Header>
-                    <strong>Thông báo</strong>
-                </Toast.Header>
-                <Toast.Body className="text-white">
-                    Thêm địa chỉ thành công!!
-                </Toast.Body>
-            </Toast>
+            <ToastContainer style={style} />
+
         </>
     );
 }

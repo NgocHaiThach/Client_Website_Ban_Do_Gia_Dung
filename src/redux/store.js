@@ -4,6 +4,7 @@ import listClassificationReducer from './classifications/classificationSlice';
 import cartListReducer from './cart/cartSlice';
 import infoUserLoginReducer from './infoUserLogin/infoUserLoginSlice';
 import addressReducer from './address/addressSlice';
+import paymentInfoReducer from './paymentInfo/paymentInfoSlice';
 
 
 const rootReducer = {
@@ -12,6 +13,7 @@ const rootReducer = {
     cartList: cartListReducer,
     infoUserLogin: infoUserLoginReducer,
     addressList: addressReducer,
+    paymentInfo: paymentInfoReducer,
 };
 
 const store = configureStore({

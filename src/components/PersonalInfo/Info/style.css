@@ -1,0 +1,124 @@
+
+.personal__info {
+    width: 75%;
+    margin-left: 6px;
+    display: flex;
+    flex-direction: column;
+}
+
+.personal__info-container {
+    display: flex;
+    width: 100%;
+    padding: 15px;
+    background-color: rgb(244, 244, 244);
+}
+
+.personal__info-header {
+    font-size: 20px;
+    line-height: 32px;
+    font-weight: 400;
+    margin: 0px 0px 12px;
+}
+
+.personal__info-left {
+    width: 100%;
+    background-color: rgb(244, 244, 244);
+}
+
+.info__left-header {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    color: rgb(100, 100, 109);
+}
+
+.info__input-field {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    margin: 0px 10px 34px 0px ;
+}
+
+.info-input {
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s, -webkit-box-shadow 0.15s ease-in-out 0s;
+    height: 36px;
+    width: 100%;
+    border-radius: 4px;
+    padding: 10px 12px;
+    line-height: 20px;
+    outline: none;
+    flex: 1 1 0%;
+    border: 1px solid rgb(196, 196, 207);
+}
+
+.info-label {
+    width: 110px;
+    min-width: 110px;
+    font-size: 18px;
+    color: rgb(51, 51, 51);
+    margin-right: 16px;
+}
+
+.container__form-info {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-around; */
+}
+
+.form-avatar {
+    margin-right: 16px;
+}
+
+.form-avatar-styles {
+    background-color: rgb(240, 248, 255);
+    border-radius: 50%;
+    width: 112px;
+    height: 112px;
+    border: 4px solid rgb(194, 225, 255);
+    position: relative;
+    -webkit-box-pack: center;
+    justify-content: center;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.form-avatar-view {
+    cursor: pointer;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.avatar-default {
+    width: 50px;
+    height: 50px;
+}
+
+.avatar-edit {
+    width: 10px;
+    height: 10px;
+}
+
+.personal__info-right {
+    width: 40%;
+    background-color: rgb(245, 224, 224);
+}
+
+.btn-save {
+    min-width: 124px;
+    width: 170px;
+    height: 40px;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    float: right;
+    margin: 15px 20px 15px 20px;
+    border: none;
+    font-size: 16px;    
+}

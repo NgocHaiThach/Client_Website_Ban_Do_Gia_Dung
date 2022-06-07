@@ -5,6 +5,9 @@ import './style.css';
 import cookies from 'react-cookies';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatPrice } from '../../../utils/format';
+import { FaShoppingCart } from "react-icons/fa";
+import { AiOutlineSearch } from "react-icons/ai";
+
 
 function HeaderBottom(props) {
     const accessUser = cookies.load("userToken");
@@ -73,7 +76,7 @@ function HeaderBottom(props) {
                         className="header-bottom_search-input"
                         type="text" placeholder="Tìm kiếm..."
                     />
-                    <button className="header-bottom_search-btn"><i className="fas fa-search"></i></button>
+                    <button className="header-bottom_search-btn"> <AiOutlineSearch /></button>
                     {/* <div className="header-bottom_cart reponsive">
                         <button className="header-bottom_cart-icon header-bottom_cart-icon2">
                             <i className="fas fa-shopping-cart"></i>
@@ -87,8 +90,9 @@ function HeaderBottom(props) {
 
                     </div> */}
                     <div className="header__cart">
-                        <div className="header__cart-wrap">
-                            <i className="header__cart-icon fas fa-shopping-cart icon-cart"></i>
+                        <div className="header__cart-wrap icon-cart">
+                            <FaShoppingCart className="header__cart-icon" />
+                            {/* <i className="header__cart-icon fas fa-shopping-cart icon-cart"></i> */}
                             <span className="header__cart-notice">{listCart.length}</span>
                             {/* No cart: header__cart-list--no-cart */}
                             <div className="header__cart-list">

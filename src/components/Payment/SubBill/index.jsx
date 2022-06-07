@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
+import cookies from 'react-cookies';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { formatPrice } from '../../../utils/format';
-import { Toast } from 'react-bootstrap';
 
 
-function SubBill(props) {
+
+function SubBill({ fee }) {
     //get listCart from store
-    const [show, setShow] = useState(false);
     const listCart = useSelector(state => state.cartList.list);
+    const accessUser = cookies.load("userToken");
+
 
     const [typePay, setTypePay] = useState(1);
 
@@ -26,6 +29,7 @@ function SubBill(props) {
     const totalPriceTemp = listCart.reduce(function (total, item) {
         return total + item.itemPrice;
     }, 0);
+
     return (
         <>
             <div className="payment__info">
@@ -65,7 +69,7 @@ function SubBill(props) {
                             Giao hàng
                         </div>
                         <div className="payment__info-list__ship-price">
-                            15.000đ
+                            {formatPrice(fee)}đ
                         </div>
                     </div>
 
@@ -74,7 +78,7 @@ function SubBill(props) {
                             Tổng
                         </div>
                         <div className="payment__info-list__ship-price toltal__price">
-                            {/* {formatPrice(totalPrice)}đ */}
+                            {formatPrice(totalPriceTemp + fee)}đ
                         </div>
                     </div>
                 </div>
@@ -97,27 +101,17 @@ function SubBill(props) {
                     {/* to={`/bill/${idUser}`} */}
                     <button
                         className="btn-confirm"
-                        onClick={() => setShow(true)}
                     >
-                        Đặt Hàng
+                        <Link style={{ textDecoration: 'none', color: 'white' }} to={`/bill/${accessUser.userId}`}>
+                            Đặt Hàng
+                        </Link>
                     </button>
                 </div>
                 <div className="payment__info-thanks">
                     Cảm ơn quý khách đã ủng hộ Ottel shop!
                 </div>
             </div>
-            <Toast onClose={() => setShow(false)} show={show} delay={3000} autohide>
-                <Toast.Header>
-                    <img
-                        src="holder.js/20x20?text=%20"
-                        className="rounded me-2"
-                        alt=""
-                    />
-                    <strong className="me-auto">Bootstrap</strong>
-                    <small>11 mins ago</small>
-                </Toast.Header>
-                <Toast.Body>Woohoo, you're reading this text in a Toast!</Toast.Body>
-            </Toast>
+
         </>
     );
 }

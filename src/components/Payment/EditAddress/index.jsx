@@ -1,18 +1,16 @@
-import { yupResolver } from '@hookform/resolvers/yup';
-import React, { useCallback, useEffect, useState } from 'react';
-import { useForm } from "react-hook-form";
-import * as yup from 'yup';
-import callApi from '../../../utils/callApi';
-import InputProvinces from '../../InputProvinces';
-import cookies from 'react-cookies';
-import { editAddressByUser } from '../../../redux/address/apiFunctionAddress';
-import { useDispatch } from 'react-redux';
-import * as Yup from "yup";
 import axios from 'axios';
 import { Form, Formik } from 'formik';
-import TextField from '../../TextField';
-import SelectField2 from '../../SelectField2/SelectField2';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
+import cookies from 'react-cookies';
+import { useDispatch } from 'react-redux';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import * as Yup from "yup";
+import { editAddressByUser } from '../../../redux/address/apiFunctionAddress';
+import SelectField2 from '../../SelectField2/SelectField2';
+import TextField from '../../TextField';
+
 
 
 
@@ -20,6 +18,10 @@ function EditAddress({
     setTonggleEdit, tonggleEdit,
     address
 }) {
+    const style = {
+        fontSize: 17
+    };
+
     const escFunction = useCallback((event) => {
         if (event.keyCode === 27) {
             setTonggleEdit(!tonggleEdit);
@@ -133,6 +135,9 @@ function EditAddress({
     useEffect(() => {
         getApiProvinces();
         getApiDistricts();
+    }, []);
+
+    useEffect(() => {
         getApiWards();
     }, [idDistrict]);
 
@@ -202,7 +207,6 @@ function EditAddress({
         }
     });
 
-    const [show, setShow] = useState(false);
     return (
         <>
             <div className="modal" >
@@ -253,9 +257,19 @@ function EditAddress({
                                     note,
                                     detail,
                                     idProv, idDistrict, idWard
-                                )
+                                );
 
-                                setShow(true);
+                                toast.info('Sửa địa chỉ thành công!', {
+                                    position: "bottom-right",
+                                    autoClose: 3000,
+                                    hideProgressBar: true,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                                });
+
+
                             }}
                         >
                             {(formik) => (
@@ -272,7 +286,7 @@ function EditAddress({
                                     />
 
                                     <TextField
-                                        label="Tên"
+                                        label="Số điện thoại"
                                         name="phone"
                                         type="text"
                                         className="input-field"
@@ -345,7 +359,7 @@ function EditAddress({
                                             type="submit"
                                         // onClick={() => handleShow()}
                                         >
-                                            Thêm Địa Chỉ
+                                            Sửa Địa Chỉ
 
                                         </Button>
                                     </div>
@@ -357,6 +371,8 @@ function EditAddress({
                 </div>
 
             </div>
+            <ToastContainer style={style} />
+
         </>
     );
 }

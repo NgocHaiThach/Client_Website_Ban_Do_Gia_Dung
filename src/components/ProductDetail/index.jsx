@@ -9,6 +9,8 @@ import cookies from 'react-cookies';
 import { addProductToCartByUser } from '../../redux/cart/apiFunctionCart';
 import { Toast } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import { FaShoppingCart } from "react-icons/fa";
+
 
 
 
@@ -107,7 +109,8 @@ function ProductDetail(props) {
                                 onClick={handleAddToCard}
                                 className="btn-add-to-card">
                                 Thêm vào giỏ hàng
-                                <i style={{ marginLeft: '8px' }} className="fas fa-shopping-cart"></i>
+                                {/* <i style={{ marginLeft: '8px' }} className="fas fa-shopping-cart"></i> */}
+                                <FaShoppingCart style={{ marginLeft: '8px' }} />
                             </button>
 
                         </div>
