@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import cookies from 'react-cookies';
 import { useDispatch } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getListAddress } from '../../redux/address/apiFunctionAddress';
 import AddAddress from './AddAddress';
@@ -30,6 +31,7 @@ function Payment(props) {
     const [tonggleEdit, setTonggleEdit] = useState(false);
 
     const [fee, setFee] = useState(0);
+    const [store, setStore] = useState(null);
 
     return (
         <>
@@ -63,6 +65,8 @@ function Payment(props) {
                                     tonggleAdd={tonggleAdd}
                                     setFee={setFee}
                                     fee={fee}
+                                    store={store}
+                                    setStore={setStore}
                                 />
                                 {/* <select onChange={(e) => console.log('fee', e.target.value)}>
                                     {listFee.map((item, index) => (
@@ -70,7 +74,12 @@ function Payment(props) {
                                     ))}
                                 </select> */}
                             </div>
-                            <SubBill fee={fee} />
+                            <SubBill
+                                address={address}
+                                fee={fee}
+                                store={store}
+                            />
+                            {/* <ToastContainer style={style} /> */}
                         </div>
                     </div>
                 </div >

@@ -1,36 +1,30 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { formatPrice } from '../../utils/format';
+import { formatDate, formatPrice } from '../../utils/format';
 import './style.css';
 
 function Bill(props) {
-    const listCart = useSelector(state => state.cartList.list);
-    const paymentInfo = useSelector(state => state.paymentInfo);
-    console.log(paymentInfo.fee)
-    console.log(paymentInfo.addressInfo)
 
-    //total Price of list
-    const totalPriceTemp = listCart.reduce(function (total, item) {
-        return total + item.itemPrice;
-    }, 0);
+    const info = JSON.parse(localStorage.getItem('infoPayment'))
+    console.log('abc', info);
+
 
     return (
         <div className="d">
             <div className="bill__title">
-                đơn hàng 100319
+                đơn hàng {info.orderCode}
                 {/* {timeBill} */}
             </div>
             <div className="bill__border">
                 <div className="bill__description">
-                    <p> Xin chào
-                        {/* {infoPayment.name} */}
+                    <p> Xin chào {" "}
+                        {info.address.name},
                     </p>
-                    <p> Đơn hàng #100319 đã được đặt thành công và chúng tôi đang xử lý</p>
+                    <p> Đơn hàng #{info.orderCode} đã được đặt thành công  {formatDate(info.expectedDeliveryTime)}{" "} và chúng tôi đang xử lý</p>
                     {/* <p> {typePayment} </p> */}
                 </div>
                 <div className="bill__id">
-                    [Đơn hàng #100319]
+                    [Đơn hàng #{info.orderCode}]
                     {/* ({timeBill}) */}
                 </div>
                 <div className="bill__table">
@@ -43,18 +37,16 @@ function Bill(props) {
                             </tr>
                         </thead>
                         <tbody>
-                            {listCart.map((item, index) => (
+                            {info.products.map((item, index) => (
                                 <tr key={index}>
                                     <td className="table-body__item-name w-30 table-body__item min-width ">{item.name}</td>
                                     <td className="w-20 table-body__item ">{item.quantity}</td>
                                     <td className="w-20 table-body__item ">{formatPrice(item.itemPrice)}đ</td>
-
-
                                 </tr>
                             ))}
                         </tbody>
                     </table>
-                    <table >
+                    <table style={{ width: '100%' }} >
                         <thead>
                             <tr>
 
@@ -64,24 +56,24 @@ function Bill(props) {
                             <tr >
                                 <td className="table-body__item-name w-30 table-body__item">Tổng số phụ:</td>
                                 <td className="w-20 table-body__item ">
-                                    {formatPrice(totalPriceTemp)}
+                                    {formatPrice(info.totalPrice)}
                                     đ
                                 </td>
                             </tr>
                             <tr >
                                 <td className="table-body__item-name w-30 table-body__item">Giao nhận hàng:</td>
-                                <td className="w-20 table-body__item ">{formatPrice(paymentInfo.fee)}đ</td>
+                                <td className="w-20 table-body__item ">{formatPrice(info.totalFee)}đ</td>
                             </tr>
-                            <tr >
+                            {/* <tr >
                                 <td className="table-body__item-name w-30 table-body__item"> Phương thức thanh toán:</td>
                                 <td className="w-20 table-body__item ">
-                                    {/* {typePayment} */}
+                                   
                                 </td>
-                            </tr>
+                            </tr> */}
                             <tr >
                                 <td className="table-body__item-name w-30 table-body__item">Tổng cộng:</td>
                                 <td className="w-20 table-body__item ">
-                                    {formatPrice(totalPriceTemp + paymentInfo.fee)}
+                                    {formatPrice(info.total)}
                                     đ</td>
                             </tr>
                         </tbody>
@@ -93,29 +85,27 @@ function Bill(props) {
                             Địa chỉ thanh toán
                         </div>
                         <div className="bill__addres-name">
-                            {/* {infoPayment.name} */}
-                            NgocHai
+                            {info.address.name}
+
                         </div>
                         <div className="bill__addres-home-number">
-                            {/* {infoPayment.home} */}
-                            Số 25,tổ 8, Trà Cú B,
+                            {info.address.detail}
                         </div>
                         <div className="bill__addres-home-ward">
-                            {/* {infoPayment.ward} */}
-                            Kim Sơn
+                            {info.address.wardName}
+
                         </div>
                         <div className="bill__addres-home-distric">
-                            {/* {infoPayment.district} */}
-                            Trà Cú
+                            {info.address.districtName}
+
                         </div>
                         <div className="bill__addres-home-province">
-                            {/* {infoPayment.province} */}
-                            Trà Vinh
+                            {info.address.provinceName}
+
                         </div>
                         <div className="bill__addres-home-phone">
-                            <a href="tel:0971018920">
-                                {/* {infoPayment.phone} */}
-                                0345751443
+                            <a href={`tel:${info.address.phone}`}>
+                                {info.address.phone}
                             </a>
                         </div>
                     </div>
@@ -124,29 +114,28 @@ function Bill(props) {
                             Địa chỉ giao hàng
                         </div>
                         <div className="bill__addres-name">
-                            {/* {infoPayment.name} */}
-                            NgcHai
+                            {info.address.name}
+
                         </div>
                         <div className="bill__addres-home-number">
-                            {/* {infoPayment.home} */}
-                            Số 25,tổ 8, Trà Cú B,
+                            {info.address.detail}
+
                         </div>
                         <div className="bill__addres-home-ward">
-                            {/* {infoPayment.ward} */}
-                            Kim Sơn
+                            {info.address.wardName}
+
                         </div>
                         <div className="bill__addres-home-distric">
-                            {/* {infoPayment.district} */}
-                            Trà Cú
+                            {info.address.districtName}
+
                         </div>
                         <div className="bill__addres-home-province">
-                            {/* {infoPayment.province} */}
-                            Trà Vinh
+                            {info.address.provinceName}
+
                         </div>
                         <div className="bill__addres-home-phone">
-                            <a href="tel:0971018920">
-                                {/* {infoPayment.phone} */}
-                                0345751443
+                            <a href={`tel:${info.address.phone}`}>
+                                {info.address.phone}
                             </a>
                         </div>
                     </div>

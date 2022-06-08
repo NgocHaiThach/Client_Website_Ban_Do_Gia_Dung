@@ -15,6 +15,8 @@ function StoreInfo({
     tonggleEdit,
     setFee,
     fee,
+    store,
+    setStore
 }) {
     const accessUser = cookies.load("userToken");
 
@@ -48,7 +50,7 @@ function StoreInfo({
     const [listFee, setListFee] = useState([]);
 
     //gia store mac dinh
-    const [itemFee, setItemFee] = useState(null);
+    // const [store, setStore] = useState(null);
 
     const getFeeAddress = async (id) => {
         const res = await callApi("/stores/fee", "POST", {
@@ -58,7 +60,7 @@ function StoreInfo({
         // console.log('fee', res);
         setListFee(res.data.result);
         setFee(res.data.result[0]?.fee);
-        setItemFee(res.data.result[0]);
+        setStore(res.data.result[0]);
 
     }
     useEffect(() => {
@@ -70,13 +72,13 @@ function StoreInfo({
     //handle Select
     const handleSelectAddress = (item) => {
         // getFeeAddress(item.addressId);
-        setItemFee(item)
+        setStore(item)
         setDisplayAddresses(true);
         setFee(item.fee);
 
         // const action = setPaymentInfo({
         //     addressInfo: address,
-        //     fee: item.fee ? item.fee : itemFee.fee,
+        //     fee: item.fee ? item.fee : store.fee,
         //     storeInfo: item,
         // })
         // dispatch(action);
@@ -114,7 +116,7 @@ function StoreInfo({
                             </ul>
                             :
                             <div style={{ padding: '15px 20px' }}>
-                                Danh sách cửa hàng trống
+                                Danh sách cửa hàng trống, Vui lòng chọn mua sản phẩm phù hợp!
                             </div>
                         }
                     </div>
@@ -132,23 +134,23 @@ function StoreInfo({
                     <div className='info'>
                         <div className="info-user">
                             <span>Tên cửa hàng:</span>
-                            <div>{itemFee?.store.name}</div>
+                            <div>{store?.store.name}</div>
                         </div>
                         {/* <div onClick={() => setTonggleEdit(!tonggleEdit)} className="edit-info">Sửa</div> */}
                     </div>
                     {/* <div>
                         <div className="info-user">
                             <span>Số điện thoại:</span>
-                            <div>{itemFee?.store.phone}</div>
+                            <div>{store?.store.phone}</div>
                         </div>
                     </div> */}
                     <div>
                         <div className="info-user">
                             <span>Đ/chỉ:</span>
                             <div>
-                                {itemFee?.store.wardName},
-                                {" "} {itemFee?.store.districtName},
-                                {" "}{itemFee?.store.provinceName}
+                                {store?.store.wardName},
+                                {" "} {store?.store.districtName},
+                                {" "}{store?.store.provinceName}
                             </div>
                         </div>
                     </div>
@@ -156,7 +158,7 @@ function StoreInfo({
                         <div className="info-user">
                             <span>Giá giao hàng:</span>
                             <div>
-                                {formatPrice(+itemFee?.fee)}đ
+                                {formatPrice(+store?.fee)}đ
                             </div>
                         </div>
                     </div>

@@ -1,16 +1,27 @@
 import React, { useState } from 'react';
 import cookies from 'react-cookies';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import { setPaymentInfo } from '../../../redux/paymentInfo/paymentInfoSlice';
+import callApi from '../../../utils/callApi';
 import { formatPrice } from '../../../utils/format';
 
 
 
-function SubBill({ fee }) {
+function SubBill({ fee, address, store }) {
+
+    const style = {
+        fontSize: 17
+    };
+
     //get listCart from store
     const listCart = useSelector(state => state.cartList.list);
     const accessUser = cookies.load("userToken");
 
+    const history = useHistory();
+    const dispatch = useDispatch();
 
     const [typePay, setTypePay] = useState(1);
 
@@ -29,6 +40,55 @@ function SubBill({ fee }) {
     const totalPriceTemp = listCart.reduce(function (total, item) {
         return total + item.itemPrice;
     }, 0);
+
+    const handleOrder = async () => {
+        if (address !== null) {
+            const res = await callApi('/orders/create/cod', 'POST', {
+                customerId: accessUser.userId,
+                addressId: address.addressId,
+                storeId: store.store.storeId,
+                note: "",
+            });
+
+            localStorage.setItem('infoPayment', JSON.stringify(res.data.result));
+            // const action = setPaymentInfo(res.data.result);
+            // dispatch(action);
+            toast.info('Đặt hàng thành công', {
+                position: "bottom-right",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            history.push(`/bill/${accessUser.userId}`);
+        }
+        else if (address === null) {
+            toast.error('Vui lòng chọn địa chỉ giao hàng', {
+                position: "bottom-right",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            // console.log('info')
+        }
+        if (store === null) {
+            toast.error('Giỏ hàng trống, hãy thêm sản phẩm vào giỏ', {
+                position: "bottom-right",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+        // console.log("first", accessUser.userId, address.addressId, store.store.storeId)
+    }
 
     return (
         <>
@@ -101,16 +161,18 @@ function SubBill({ fee }) {
                     {/* to={`/bill/${idUser}`} */}
                     <button
                         className="btn-confirm"
+                        onClick={handleOrder}
                     >
-                        <Link style={{ textDecoration: 'none', color: 'white' }} to={`/bill/${accessUser.userId}`}>
-                            Đặt Hàng
-                        </Link>
+                        {/* <Link style={{ textDecoration: 'none', color: 'white' }} to={`/bill/${accessUser.userId}`}> */}
+                        Đặt Hàng
+                        {/* </Link> */}
                     </button>
                 </div>
                 <div className="payment__info-thanks">
                     Cảm ơn quý khách đã ủng hộ Ottel shop!
                 </div>
             </div>
+            <ToastContainer style={style} />
 
         </>
     );
