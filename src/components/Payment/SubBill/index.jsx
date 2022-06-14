@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import cookies from 'react-cookies';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import { setPaymentInfo } from '../../../redux/paymentInfo/paymentInfoSlice';
@@ -43,26 +43,61 @@ function SubBill({ fee, address, store }) {
 
     const handleOrder = async () => {
         if (address !== null) {
-            const res = await callApi('/orders/create/cod', 'POST', {
-                customerId: accessUser.userId,
-                addressId: address.addressId,
-                storeId: store.store.storeId,
-                note: "",
-            });
+            if (typePay === 1) {
+                const res = await callApi('/orders/create/cod', 'POST', {
+                    customerId: accessUser.userId,
+                    addressId: address.addressId,
+                    storeId: store.store.storeId,
+                    note: "",
+                });
 
-            localStorage.setItem('infoPayment', JSON.stringify(res.data.result));
-            // const action = setPaymentInfo(res.data.result);
-            // dispatch(action);
-            toast.info('Đặt hàng thành công', {
-                position: "bottom-right",
-                autoClose: 3000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
-            history.push(`/bill/${accessUser.userId}`);
+                localStorage.setItem('infoPayment', (res.data.result.orderId));
+
+                toast.info('Đặt hàng thành công', {
+                    position: "bottom-right",
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                history.push(`/bill/${accessUser.userId}`);
+            }
+            else {
+                await callApi('/orders/create/onl', 'POST', {
+                    customerId: accessUser.userId,
+                    addressId: address.addressId,
+                    storeId: store.store.storeId,
+                    note: "",
+                    returnUrl: `http://localhost:9999/bill/${accessUser.userId}`,
+                })
+                    .then(res => {
+                        // console.log('res', res)
+                        if (res.status === 200) {
+                            window.location.href = `${res.data.result}`;
+                        }
+                        else if (res.status === 400) {
+                            alert('thanh toan that bai')
+                            // loginFaild = true
+                        }
+                    })
+                    .catch(err => { console.log(err) })
+
+                // localStorage.setItem('infoPayment', (res.data.result.orderId));
+
+                toast.info('Đặt hàng thành công', {
+                    position: "bottom-right",
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                // history.push(`/bill/${accessUser.userId}`);
+            }
+
         }
         else if (address === null) {
             toast.error('Vui lòng chọn địa chỉ giao hàng', {
@@ -88,6 +123,7 @@ function SubBill({ fee, address, store }) {
             });
         }
         // console.log("first", accessUser.userId, address.addressId, store.store.storeId)
+        console.log("first", typePay)
     }
 
     return (

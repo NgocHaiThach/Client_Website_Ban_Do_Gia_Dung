@@ -34,17 +34,17 @@
 }
 
 .info__title-item {
-    width: 16.6667%;
-    padding: 12px 0px;
-    text-align: center;
-    color: rgb(13, 92, 182);
-    border-bottom: 2px solid rgb(13, 92, 182);
-
     /* width: 16.6667%;
     padding: 12px 0px;
     text-align: center;
+    color: rgb(13, 92, 182);
+    border-bottom: 2px solid rgb(13, 92, 182); */
+
+    width: 16.6667%;
+    padding: 12px 0px;
+    text-align: center;
     color: rgb(128, 128, 137);
-    border-bottom: none; */
+    border-bottom: none;
 }
 
 .info__search {

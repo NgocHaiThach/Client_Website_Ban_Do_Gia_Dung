@@ -12,12 +12,14 @@ import { logout } from '../../../redux/infoUserLogin/infoUserLoginSlice';
 function HeaderInfo(props) {
     const history = useHistory();
     const dispatch = useDispatch();
-    const accessUser = cookies.load("userToken");
+
+    // const listCart = useSelector(state => state.cartList.list);
 
 
     const accessToken = useSelector(state => state.infoUserLogin);
+
     // const accessToken = JSON.parse(localStorage.getItem('userToken')) || {};
-    console.log(accessToken.phone)
+    console.log('access', accessToken);
 
     const logOutUser = () => {
 
@@ -37,20 +39,23 @@ function HeaderInfo(props) {
                         className="fas fa-chevron-down"></i>
                         </a> */}
                     <div className="header-info_about-content">
-                        {accessToken !== undefined ? accessToken.userPhone : "Đăng nhập tài khoản"} <i className="fas fa-chevron-down"></i>
+                        {/* {accessToken.userId === "" ? accessToken.userId : "Đăng nhập tài khoản"}  */}
+                        {accessToken.userPhone}
+
+                        <i className="fas fa-chevron-down"></i>
 
                         <ul className="header-info_about-list">
                             <li className="header-info_about-item">
                                 <Link to={`/personal-info/${accessToken.userId}`}>Tài khoản của tôi</Link>
                             </li>
                             <li className="header-info_about-item">
-                                <Link to='/cart'>Đơn hàng của tôi</Link>
+                                <Link to='/cart'>Giỏ hàng của tôi</Link>
                             </li>
-                            <li className="header-info_about-item">
+                            {/* <li className="header-info_about-item">
                                 <Link to={`/payment/${accessToken.userId}`}>Thanh toán</Link>
-                            </li>
+                            </li> */}
 
-                            {accessToken === undefined ?
+                            {accessToken.userId === null || accessToken.userId === "" ?
                                 <li className="header-info_about-item">
                                     <Link to='/login'>
                                         Đăng nhập
