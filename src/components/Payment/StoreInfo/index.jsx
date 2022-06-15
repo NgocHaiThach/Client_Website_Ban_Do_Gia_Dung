@@ -1,20 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { deleteAddressByUser } from '../../../redux/address/apiFunctionAddress';
+import { useEffect, useRef, useState } from 'react';
 import cookies from 'react-cookies';
+import { FaChevronDown } from "react-icons/fa";
+import { useDispatch, useSelector } from 'react-redux';
 import callApi from '../../../utils/callApi';
 import { formatPrice } from '../../../utils/format';
-import { setPaymentInfo } from '../../../redux/paymentInfo/paymentInfoSlice';
 
 function StoreInfo({
-    setAddress,
     address,
-    setTonggleAdd,
-    tonggleAdd,
-    setTonggleEdit,
-    tonggleEdit,
     setFee,
-    fee,
     store,
     setStore
 }) {
@@ -63,6 +56,9 @@ function StoreInfo({
         setStore(res.data.result[0]);
 
     }
+
+    const listCart = useSelector(state => state.cartList.list);
+
     useEffect(() => {
         if (address?.addressId) {
             getFeeAddress(address?.addressId);
@@ -85,10 +81,11 @@ function StoreInfo({
     }
     return (
         <>
+            {/* {address !== null ? */}
             <div className="payment__select-address">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div className="payment__note" onClick={handleDisplay}>
-                        Chọn cửa hàng bạn muốn mua*
+                        Chọn cửa hàng bạn muốn mua* <FaChevronDown style={{ paddingTop: '4px', paddingLeft: '3px' }} />
                         {/* <i className="fa-solid fa-angle-down" style={{ color: 'red' }}></i> */}
                     </div>
                     {/* <button onClick={() => setTonggleAdd(!tonggleAdd)} className="btn-add-address">Thêm địa chỉ mới</button> */}
@@ -100,33 +97,62 @@ function StoreInfo({
                                 {listFee?.map((item, index) => (
                                     <div key={index} className="language__item-action">
                                         <li onClick={() => handleSelectAddress(item)} className="language__item">
-                                            <span className="language__item-english">
+                                            {/* <span className="language__item-english">
                                                 {index + 1}.{" "}
-                                                {item.store.name}, {" "}
-                                                {/* {item.store.detail}, {" "} */}
+                                                {item.store.name}, {" "}                                           
                                                 {item.store.wardName}, {" "}
                                                 {item.store.districtName}, {" "}
                                                 {item.store.provinceName}, {" "}
-                                                {/* {item.note} */}
-                                            </span>
+                                            </span> */}
+                                            <div className="location__item-info">
+                                                <div className="location__item-name">
+                                                    {item.store.name}
+                                                    <span>
+                                                        {/* <AiOutlineCheckCircle /> */}
+                                                        {item.default && <span>Địa chỉ mặc định</span>}
+                                                    </span>
+                                                </div>
+                                                <div className="location__item-address">
+                                                    <span>Địa chỉ:</span> {" "}
+                                                    {item.store.wardName}, {item.store.districtName}, {item.store.provinceName}
+                                                </div>
+                                                <div className="location__item-phone" style={{ color: 'red' }}>
+                                                    <span>Phí giao hàng:</span> {" "}
+                                                    {formatPrice(item.fee)}đ
+                                                </div>
+
+                                            </div>
                                         </li>
-                                        <span style={{ color: 'red', cursor: 'pointer' }}>{formatPrice(item.fee)}đ</span>
+                                        {/* <span style={{ color: 'red', cursor: 'pointer' }}>{formatPrice(item.fee)}đ</span> */}
                                     </div>
                                 ))}
                             </ul>
                             :
-                            <div style={{ padding: '15px 20px' }}>
-                                Danh sách cửa hàng trống, Vui lòng chọn mua sản phẩm phù hợp!
-                            </div>
+                            <>
+                                <div className="address__loading" style={{ top: "50%" }}>
+                                    <div className="spinner-container">
+                                        <div className="loading-spinner">
+                                        </div>
+                                    </div>
+                                </div>
+                                {listCart.length <= 0 ?
+                                    <div style={{ fontSize: "18px", textAlign: "center", paddingBottom: "12px" }}>
+                                        Giỏ hàng trống. Vui lòng chọn mua sản phẩm
+                                    </div>
+                                    : <div style={{ fontSize: "18px", textAlign: "center", paddingBottom: "12px" }}>
+                                        Vui lòng chọn địa chỉ trước khi chọn cửa hàng!
+                                    </div>}
+                            </>
                         }
                     </div>
                 </div>
 
             </div>
+            {/* : null} */}
 
             {address === null || listFee.length === 0 ?
                 <span className="payment__list-form-add" style={{ padding: '15px 20px', fontSize: '20px', marginTop: '10px' }}>
-                    Vui lòng chọn cửa hàng bạn muốn mua
+                    {/* Vui lòng chọn cửa hàng bạn muốn mua */}
                 </span>
                 :
                 <div className="payment__list-form-add">
@@ -138,12 +164,7 @@ function StoreInfo({
                         </div>
                         {/* <div onClick={() => setTonggleEdit(!tonggleEdit)} className="edit-info">Sửa</div> */}
                     </div>
-                    {/* <div>
-                        <div className="info-user">
-                            <span>Số điện thoại:</span>
-                            <div>{store?.store.phone}</div>
-                        </div>
-                    </div> */}
+
                     <div>
                         <div className="info-user">
                             <span>Đ/chỉ:</span>
@@ -165,6 +186,7 @@ function StoreInfo({
                 </div>
 
             }
+
         </>
     );
 }

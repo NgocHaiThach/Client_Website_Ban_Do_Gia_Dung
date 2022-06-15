@@ -35,7 +35,6 @@ function Payment(props) {
 
     return (
         <>
-
             <div className="grid wide">
                 <div className="">
                     <div className="payment__title">
@@ -50,36 +49,21 @@ function Payment(props) {
 
                                 <AddressInfo
                                     address={address}
-                                    setTonggleEdit={setTonggleEdit}
-                                    tonggleEdit={tonggleEdit}
                                     setAddress={setAddress}
-                                    setTonggleAdd={setTonggleAdd}
-                                    tonggleAdd={tonggleAdd}
                                 />
                                 <StoreInfo
                                     address={address}
-                                    setTonggleEdit={setTonggleEdit}
-                                    tonggleEdit={tonggleEdit}
-                                    setAddress={setAddress}
-                                    setTonggleAdd={setTonggleAdd}
-                                    tonggleAdd={tonggleAdd}
                                     setFee={setFee}
-                                    fee={fee}
                                     store={store}
                                     setStore={setStore}
                                 />
-                                {/* <select onChange={(e) => console.log('fee', e.target.value)}>
-                                    {listFee.map((item, index) => (
-                                        <option key={index} value={item.fee}>{item.store.name}</option>
-                                    ))}
-                                </select> */}
                             </div>
+
                             <SubBill
                                 address={address}
                                 fee={fee}
                                 store={store}
                             />
-                            {/* <ToastContainer style={style} /> */}
                         </div>
                     </div>
                 </div >

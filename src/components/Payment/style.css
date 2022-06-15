@@ -1,3 +1,78 @@
+.address__loading {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    padding: 30px 0;
+}
+
+
+.location__info-item {
+    background-color: rgb(255, 255, 255);
+    padding: 17px;
+    border-radius: 4px;
+    margin: 0px 0px 10px;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    font-size: 15px;
+    line-height: 19px;
+}
+
+.location__item-name {
+    font-size:18px;
+    color: rgb(27, 168, 255);
+    text-transform: uppercase;
+    margin: 0px 0px 10px;
+}
+
+.location__item-name > span  {
+    font-size: 15px;
+    margin: 0px 0px 0px 15px;
+    display: inline-block;
+    -webkit-box-align: center;
+    align-items: center;
+    color: rgb(38, 188, 78);
+    text-transform: none;
+}
+
+.location__item- > span span {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0px 0px 0px 5px;
+}
+
+.location__item-address {
+    margin: 0px 0px 5px;
+}
+.location__item-address span {
+    color: rgb(120, 120, 120);
+}
+
+.location__item-phone {
+    margin: 0px 0px 5px;
+}
+.location__item-phone span {
+    color: rgb(120, 120, 120);
+}
+
+@keyframes spinner {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 10px solid #f3f3f3; /* Light grey */
+    border-top: 10px solid #383636; /* Black */
+    border-radius: 50%;
+    animation: spinner 1.5s linear infinite;
+}
+
 .submit-address {
     margin: 0 50px 0 0;
     float: right;
@@ -68,9 +143,10 @@
 }
 
 .language__item-action {
-    display: flex;
+    /* display: flex;
     justify-content: space-around;
-    align-items: center;
+    align-items: center; */
+    /* padding: 0 8px; */
 }
   
 .language__item-other {
@@ -187,7 +263,7 @@
     font-size: 18px;
     line-height: 1.4;
     font-weight: 500;
-    width: 300px;
+    width: 312px;
     color: var(--primary-color);
     margin: 20px 0 0 15px;
     padding: 10px;
@@ -371,12 +447,15 @@
 
 .payment__info-type {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     font-size: 18px;
     margin-top: 30px;
 }
 
 .payment__info-type__cash {
+    display: flex;
+    align-items: center;
     margin-bottom: 30px;
 }
 

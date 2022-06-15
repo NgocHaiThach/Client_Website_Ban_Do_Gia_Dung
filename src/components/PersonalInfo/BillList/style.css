@@ -30,21 +30,23 @@
     overflow: hidden;
     position: sticky;
     top: 0px;
-    z-index: 10;
+    z-index: 2;
 }
 
 .info__title-item {
-    /* width: 16.6667%;
-    padding: 12px 0px;
-    text-align: center;
-    color: rgb(13, 92, 182);
-    border-bottom: 2px solid rgb(13, 92, 182); */
-
     width: 16.6667%;
     padding: 12px 0px;
     text-align: center;
     color: rgb(128, 128, 137);
     border-bottom: none;
+}
+
+.info__title-item-active {
+    width: 16.6667%;
+    padding: 12px 0px;
+    text-align: center;
+    color: rgb(13, 92, 182);
+    border-bottom: 2px solid rgb(13, 92, 182);
 }
 
 .info__search {

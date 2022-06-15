@@ -41,6 +41,7 @@ function Location(props) {
             text = "You canceled!";
         }
     }
+
     return (
         <>
             <div className="location__info">

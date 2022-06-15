@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import cookies from 'react-cookies';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
-import { setPaymentInfo } from '../../../redux/paymentInfo/paymentInfoSlice';
+import { getListCartByIdUser } from '../../../redux/cart/apiFunctionCart';
 import callApi from '../../../utils/callApi';
 import { formatPrice } from '../../../utils/format';
+import IMG_VNPAY from '../../../assets/images/icon-payment-vnpay.png';
+import IMG_COD from '../../../assets/images/icon-payment-method-cod.svg';
+import IMG_BANK_1 from '../../../assets/images/pyicon-1.svg';
+import IMG_BANK_2 from '../../../assets/images/pyicon-2.svg';
+import IMG_BANK_3 from '../../../assets/images/pyicon-3.svg';
+import IMG_BANK_4 from '../../../assets/images/pyicon-4.svg';
+import IMG_BANK_5 from '../../../assets/images/pyicon-5.svg';
 
 
 
@@ -28,11 +34,15 @@ function SubBill({ fee, address, store }) {
     const typepays = [
         {
             id: 1,
-            name: 'Trả tiền mặt khi nhận hàng'
+            name: 'Thanh toán tiền mặt khi nhận hàng',
+            img: [],
+            icon: IMG_COD,
         },
         {
             id: 2,
-            name: 'Chuyển khoản ngân hàng'
+            name: 'Thanh toán bằng VNPay hoặc thẻ ngân hàng, thẻ quốc tế',
+            img: [IMG_BANK_1, IMG_BANK_2, IMG_BANK_3, IMG_BANK_4, IMG_BANK_5],
+            icon: IMG_VNPAY,
         },
     ];
 
@@ -63,6 +73,7 @@ function SubBill({ fee, address, store }) {
                     progress: undefined,
                 });
                 history.push(`/bill/${accessUser.userId}`);
+                getListCartByIdUser(dispatch, accessUser.userId);
             }
             else {
                 await callApi('/orders/create/onl', 'POST', {
@@ -95,6 +106,7 @@ function SubBill({ fee, address, store }) {
                     draggable: true,
                     progress: undefined,
                 });
+                getListCartByIdUser(dispatch, accessUser.userId);
                 // history.push(`/bill/${accessUser.userId}`);
             }
 
@@ -181,11 +193,30 @@ function SubBill({ fee, address, store }) {
                 <div className="payment__info-type">
                     {typepays.map(type => (
                         <div key={type.id} className="payment__info-type__cash">
+
                             <input
                                 onChange={() => setTypePay(type.id)}
                                 checked={typePay === type.id}
-                                type="radio" />
-                            <span>{type.name}</span>
+                                type="radio"
+                                style={{ fontSize: "18px" }}
+                            />
+                            <img style={{ width: "50px", height: "50px", padding: "0 4px", marginBottom: '16px' }} src={type.icon} alt="" />
+
+
+                            <div>
+                                <span>{type.name}</span>
+                                <ul style={{ display: 'flex', listStyle: 'none', paddingLeft: '5px' }}>
+                                    {type.img.map((img, index) => (
+                                        <li key={index}>
+                                            <img style={{ width: "50px", height: "50px", padding: "0 4px" }} src={img} alt="" />
+                                        </li>
+                                    ))}
+                                </ul>
+
+                            </div>
+
+
+
                         </div>
                     ))}
 
@@ -204,9 +235,9 @@ function SubBill({ fee, address, store }) {
                         {/* </Link> */}
                     </button>
                 </div>
-                <div className="payment__info-thanks">
+                {/* <div className="payment__info-thanks">
                     Cảm ơn quý khách đã ủng hộ Ottel shop!
-                </div>
+                </div> */}
             </div>
             <ToastContainer style={style} />
 

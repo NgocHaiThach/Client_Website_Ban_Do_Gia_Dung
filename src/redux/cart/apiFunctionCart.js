@@ -32,7 +32,7 @@ export const addProductToCartByUser = async (dispatch,idUser, idProduct,quantity
 }
 
 // ADD: List product
-export const deleteProductToCartByUser = async (dispatch,idUser, idProduct) => {
+export const deleteProductToCartByUser = async (dispatch, idUser, idProduct) => {
     try {
         const res = await callApi(`/carts/deletecart`, 'POST', {
             customerId: idUser,

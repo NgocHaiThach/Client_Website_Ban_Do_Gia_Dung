@@ -23,9 +23,12 @@ function Bill(props) {
 
     const getInfoPayment = async () => {
         const res = await callApi('/orders/preview', 'POST', {
-            orderId: info || param,
+            orderId: param,
+            // orderId: param,
+
         });
         setPreview(res.data.result);
+        console.log(res.data.result)
     }
 
     useEffect(() => {
@@ -37,7 +40,7 @@ function Bill(props) {
         // <div>abc</div>
         <div className="d">
             <div className="bill__title">
-                đơn hàng {preview?.orderId.slice(0, 5)}
+                đơn hàng {preview?.orderId.slice(0, 8)}
                 {/* {timeBill} */}
             </div>
             <div className="bill__border">
@@ -45,11 +48,11 @@ function Bill(props) {
                     <p> Xin chào {" "}
                         {preview?.address.name},
                     </p>
-                    <p> Đơn hàng #{preview?.orderId.slice(0, 5)} đã được đặt thành công  {formatDate(preview?.expectedDeliveryTime)}{" "} và chúng tôi đang xử lý</p>
+                    <p> Đơn hàng #{preview?.orderId.slice(0, 8)} đã được đặt thành công  {formatDate(preview?.expectedDeliveryTime)}{" "} và chúng tôi đang xử lý</p>
                     {/* <p> {typePayment} </p> */}
                 </div>
                 <div className="bill__id">
-                    [Đơn hàng #{preview?.orderId.slice(0, 5)}] {" "}
+                    [Đơn hàng #{preview?.orderId.slice(0, 8)}] {" "}
                     {formatDate(preview?.expectedDeliveryTime)}
                 </div>
                 <div className="bill__table">
@@ -107,36 +110,36 @@ function Bill(props) {
                 <div className="bill__addres">
                     <div>
                         <div className="bill__addres-title">
-                            Địa chỉ thanh toán
+                            Địa chỉ gửi hàng
                         </div>
                         <div className="bill__addres-name">
-                            {preview?.address?.name}
+                            {preview?.store?.name}
 
                         </div>
                         <div className="bill__addres-home-number">
-                            {preview?.address?.detail}
+                            {preview?.store?.detail}
                         </div>
                         <div className="bill__addres-home-ward">
-                            {preview?.address?.wardName}
+                            {preview?.store?.wardName}
 
                         </div>
                         <div className="bill__addres-home-distric">
-                            {preview?.address?.districtName}
+                            {preview?.store?.districtName}
 
                         </div>
                         <div className="bill__addres-home-province">
-                            {preview?.address?.provinceName}
+                            {preview?.store?.provinceName}
 
                         </div>
-                        <div className="bill__addres-home-phone">
+                        {/* <div className="bill__addres-home-phone">
                             <a href={`tel:${preview?.address?.phone}`}>
                                 {preview?.address?.phone}
                             </a>
-                        </div>
+                        </div> */}
                     </div>
                     <div>
                         <div className="bill__addres-title">
-                            Địa chỉ giao hàng
+                            Địa chỉ nhận hàng và thanh toán
                         </div>
                         <div className="bill__addres-name">
                             {preview?.address?.name}

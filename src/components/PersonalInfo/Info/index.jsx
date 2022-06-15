@@ -161,7 +161,7 @@ function Info(props) {
                                                 <span>Giới tính: </span>
 
                                                 {typeSexs.map(type => (
-                                                    <div key={type.id} className="payment__info-type__cash" style={{ padding: '10px 20px' }}>
+                                                    <div key={type.id} className="payment__info-type__sex" style={{ padding: '10px 20px' }}>
                                                         <input
                                                             onChange={() => setTypeSex(type.id)}
                                                             checked={typeSex === type.id}

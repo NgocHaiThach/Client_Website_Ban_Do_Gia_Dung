@@ -9,6 +9,8 @@ import './style.css';
 
 function CartDetail(props) {
 
+    const [isLoading, setIsLoading] = useState(false);
+
     //lấy gải hàng tư store 
     const listCart = useSelector(state => state.cartList.list);
 
@@ -40,11 +42,34 @@ function CartDetail(props) {
 
     //xử lý xóa item
     const handleDelete = (idProduct) => {
-        deleteProductToCartByUser(dispatch, accessUser.userId, idProduct);
+        // setIsLoading(true);
+        // setTimeout(() => {
+        //     setIsLoading(false);
+        // }, 1000)
+        deleteProductToCartByUser(dispatch, accessUser.userId, idProduct)
+    }
+
+    function myFunction(idProduct) {
+        let text = "Bạn có chắc chắn xóa sản phẩm này?";
+        if (window.confirm(text) == true) {
+            handleDelete(idProduct)
+        } else {
+            text = "You canceled!";
+        }
     }
 
     return (
         <>
+            {/* {isLoading ?
+
+                <div style={{ backgroundColor: '#666', width: '100vw', height: '100vh' }}>
+                    <div className="spinner-container">
+                        <div className="loading-spinner">
+                        </div>
+                    </div>
+                </div>
+                : null} */}
+
             {listCart.length <= 0 ?
                 <div>
                     <img src='https://hoplongtech.com/uploads/1.0.1/emptycart.png' alt="" className="cart-no-cart-img" />
@@ -99,7 +124,7 @@ function CartDetail(props) {
 
                                                     >-
                                                     </button>
-                                                    <input className="product-quantity__number-text" type="text" value={item.quantity} />
+                                                    <input className="product-quantity__number-text" type="text" defaultValue={item.quantity} />
 
                                                     <button
                                                         className="product-quantity__number-plus"
@@ -112,7 +137,7 @@ function CartDetail(props) {
                                             <div className="col l-1 product-item__removal">
                                                 <span
                                                     className="remove__product-item"
-                                                    onClick={() => handleDelete(item.productId)}
+                                                    onClick={() => myFunction(item.productId)}
                                                 >
                                                     Xoá
                                                 </span>
