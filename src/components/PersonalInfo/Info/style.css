@@ -97,7 +97,22 @@
     height: 50px;
 }
 
-.avatar-edit {
+.form-avatar-edit {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-color: rgb(100, 100, 109);
+    border-radius: 12px;
+    right: 3px;
+    bottom: 5px;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    display: flex;
+}
+
+.form-avatar-edit img {
     width: 10px;
     height: 10px;
 }

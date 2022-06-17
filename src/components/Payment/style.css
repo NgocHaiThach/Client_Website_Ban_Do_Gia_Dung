@@ -518,13 +518,13 @@
     }
 
     .payment__title {
-        margin: 116px auto 0 auto;
+        margin: 35px auto 0 auto;
     }
 }
 
 @media (max-width: 739px) {
     .payment__wrapper {
-        margin-left: 26px;
+        margin-left: 8px;
     }
 
     .payment__title {
@@ -548,8 +548,32 @@
     }
 
     .payment__title {
-        margin: 116px auto 0 auto;
+        margin: 35px auto 0 auto;
     }
+
+    .payment__note {
+        cursor: pointer;
+        font-size: 18px;
+        line-height: 1.4;
+        font-weight: 500;
+        width: 312px;
+        color: var(--primary-color);
+        margin: 20px 0 0 15px;
+        padding: 10px;
+        border: 1px solid var(--primary-color);
+        margin-top: 35px;
+    }
+
+    .header-text {
+    width: 100%;
+    height: 75px;
+    background-color: #c92127;
+    color: white;
+    text-align: center;
+    font-size: 18px;
+    padding-top: 12px;
+    font-weight: 600;
+}
 }
 
 

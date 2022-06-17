@@ -132,7 +132,7 @@ function ProductDetail(props) {
                     <div className="">
                         <div className="product-params">
                             <div className="params-title">THÔNG SỐ KỸ THUẬT</div>
-                            <table>
+                            <table style={{ width: '200%' }}>
                                 <tbody>
                                     {product?.specifications?.map((item, index) => (
                                         <tr key={index}>

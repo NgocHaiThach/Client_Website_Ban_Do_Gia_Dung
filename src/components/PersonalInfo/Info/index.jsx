@@ -1,5 +1,5 @@
 import { Form, Formik } from 'formik';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as Yup from "yup";
 import { days, months, years } from '../../../utils/constances';
 import SelectField from '../../Selectfield';
@@ -28,7 +28,7 @@ function Info(props) {
             .required("Trường này bắt buộc"),
     });
 
-
+    const inputFile = useRef(null)
 
     const [typeSex, setTypeSex] = useState(1);
 
@@ -48,6 +48,49 @@ function Info(props) {
     ];
 
     const [display, setDisplay] = useState(1);
+
+    const onClickChoosFile = () => {
+        // `current` points to the mounted file input element
+        inputFile.current.click();
+    }
+
+    const [valueFile, setValueFile] = useState(null);
+
+    // const handleSelectFile = (e) => {
+    //     console.log("first", e.target.files[0]);
+    //     setValueFile(e.target.files[0])
+    // }
+    const [selectedFile, setSelectedFile] = useState()
+    const [preview, setPreview] = useState()
+
+    // create a preview as a side effect, whenever selected file is changed
+    useEffect(() => {
+        if (!selectedFile) {
+            setPreview(undefined)
+            return
+        }
+
+        const objectUrl = URL.createObjectURL(selectedFile)
+        setPreview(objectUrl)
+
+        // free memory when ever this component is unmounted
+        return () => URL.revokeObjectURL(objectUrl)
+    }, [selectedFile])
+
+    const onSelectFile = e => {
+        if (!e.target.files || e.target.files.length === 0) {
+            setSelectedFile(undefined)
+            return
+        }
+
+        // I've kept this example simple by using the first image instead of multiple
+        setSelectedFile(e.target.files[0])
+    }
+
+    const handlePost = () => {
+        console.log(selectedFile)
+        console.log("first")
+    }
 
     return (
         <>
@@ -95,9 +138,18 @@ function Info(props) {
                                                     <div className="form-avatar-styles">
                                                         <div>
                                                             <div className="form-avatar-view">
-                                                                <img className="avatar-default" src="https://thumbs.dreamstime.com/b/male-avatar-icon-flat-style-male-user-icon-cartoon-man-avatar-hipster-vector-stock-91462914.jpg" alt="avater" />
+                                                                <img className="avatar-default" src={preview === undefined ? "https://thumbs.dreamstime.com/b/male-avatar-icon-flat-style-male-user-icon-cartoon-man-avatar-hipster-vector-stock-91462914.jpg" : preview} alt="avater" />
+                                                                <div className="form-avatar-edit">
+                                                                    <img onClick={onClickChoosFile} src="https://frontend.tikicdn.com/_desktop-next/static/img/account/edit.png" alt="edit" />
+                                                                    <input
+                                                                        onChange={(e) => onSelectFile(e)}
+                                                                        type='file'
+                                                                        id='file'
+                                                                        ref={inputFile}
+                                                                        style={{ display: 'none' }}
+                                                                    />
+                                                                </div>
                                                             </div>
-
                                                         </div>
                                                     </div>
                                                 </div>
@@ -175,8 +227,8 @@ function Info(props) {
                                                 <button
                                                     variant="primary"
                                                     className="btn-save"
-                                                    type="submit"
-
+                                                    // type="submit"
+                                                    onClick={handlePost()}
                                                 >
                                                     Lưu thay đổi
 
@@ -267,12 +319,14 @@ function Info(props) {
                                 </div>
                             </div>
                         </div>
-                        <button className="button-update-tel"
-                            onClick={() => setDisplay(1)}
-                        >
-                            Trở về
-                        </button>
-                        <button className="button-update-tel">Lưu thay đổi</button>
+                        <div style={{ display: 'flex' }} >
+                            <button className="button-update-tel"
+                                onClick={() => setDisplay(1)}
+                            >
+                                Trở về
+                            </button>
+                            <button className="button-update-tel">Lưu thay đổi</button>
+                        </div>
                     </form>
                 </div>
             </div> : null}
@@ -290,12 +344,14 @@ function Info(props) {
                                 </div>
                             </div>
                         </div>
-                        <button className="button-update-tel"
-                            onClick={() => setDisplay(1)}
-                        >
-                            Trở về
-                        </button>
-                        <button className="button-update-tel">Lưu thay đổi</button>
+                        <div style={{ display: 'flex' }} >
+                            <button className="button-update-tel"
+                                onClick={() => setDisplay(1)}
+                            >
+                                Trở về
+                            </button>
+                            <button className="button-update-tel">Lưu thay đổi</button>
+                        </div>
                     </form>
                 </div>
             </div> : null}
@@ -331,12 +387,15 @@ function Info(props) {
                                 </div>
                             </div>
                         </div>
-                        <button className="button-update-tel"
-                            onClick={() => setDisplay(1)}
-                        >
-                            Trở về
-                        </button>
-                        <button className="button-update-tel">Lưu thay đổi</button>
+                        <div style={{ display: 'flex' }} >
+
+                            <button className="button-update-tel"
+                                onClick={() => setDisplay(1)}
+                            >
+                                Trở về
+                            </button>
+                            <button className="button-update-tel">Lưu thay đổi</button>
+                        </div>
                     </form>
                 </div>
             </div> : null}

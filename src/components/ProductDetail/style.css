@@ -21,8 +21,9 @@ img {
     transition: all 0.5s ease;
 }
 .img-showcase img {
-    min-width:350px;
-    margin: 0 100px;
+    margin: 0 40px;
+    width: 480px;
+    height: 330px;
 }
 .img-select {
     display: flex;
