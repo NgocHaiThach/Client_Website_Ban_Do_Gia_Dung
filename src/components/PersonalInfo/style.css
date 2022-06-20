@@ -7,6 +7,7 @@
     width: 25%;
     background-color: rgb(244, 244, 244);
     margin-right: 6px;
+    max-height: 300px;
 }
 .sidebar__header {
     display: flex;

@@ -23,7 +23,7 @@ function Bill(props) {
 
     const getInfoPayment = async () => {
         const res = await callApi('/orders/preview', 'POST', {
-            orderId: param,
+            orderId: param || info,
             // orderId: param,
 
         });
