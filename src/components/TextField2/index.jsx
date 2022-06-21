@@ -13,8 +13,8 @@ const TextField2 = ({ label, nameInput, labelName, classNameDiv, ...props }) => 
                     {...props}
                     autoComplete="off"
                 />
-                {/* <ErrorMessage component="div" name={field.name} className="error" style={{ color: 'red' }} /> */}
             </div>
+            <ErrorMessage component="div" name={field.name} className="error" style={{ color: 'red' }} />
         </>
     );
 };

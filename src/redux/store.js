@@ -5,6 +5,7 @@ import cartListReducer from './cart/cartSlice';
 import infoUserLoginReducer from './infoUserLogin/infoUserLoginSlice';
 import addressReducer from './address/addressSlice';
 import paymentInfoReducer from './paymentInfo/paymentInfoSlice';
+import personalInfoReudcer from './personalInfo/personalInfoSlice';
 
 
 const rootReducer = {
@@ -14,6 +15,7 @@ const rootReducer = {
     infoUserLogin: infoUserLoginReducer,
     addressList: addressReducer,
     paymentInfo: paymentInfoReducer,
+    personalInfo: personalInfoReudcer,
 };
 
 const store = configureStore({
