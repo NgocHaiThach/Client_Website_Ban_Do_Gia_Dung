@@ -10,6 +10,8 @@ import cookies from 'react-cookies';
 import GoogleLogin from 'react-google-login';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/infoUserLogin/infoUserLoginSlice';
+import { getListCartByIdUser } from '../../redux/cart/apiFunctionCart';
+import { getPersonalInfoById } from '../../redux/personalInfo/apiFunctionPersonal';
 
 
 const schema = yup.object().shape({
@@ -57,7 +59,9 @@ function Login(props) {
                         // const action = login(jwt_decode(res.data.token).UserName)
                         // dispath(action)
                         // getCarts(dispath, res.data.token, jwt_decode(res.data.token).UserId)
-                        history.push('/home')
+                        getListCartByIdUser(dispatch, res.data.result.customerId);
+                        getPersonalInfoById(dispatch, res.data.result.customerId);
+                        history.push('/home');
                     }
                     else if (res.status !== 400) {
                         console.log('dang nhap that bai')

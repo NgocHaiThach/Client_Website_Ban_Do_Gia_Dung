@@ -49,11 +49,14 @@ function Bill(props) {
                         {preview?.address.name},
                     </p>
                     <p> Đơn hàng #{preview?.orderId.slice(0, 8)} đã được đặt thành công  {formatDate(preview?.expectedDeliveryTime)}{" "} và chúng tôi đang xử lý</p>
-                    {/* <p> {typePayment} </p> */}
+
                 </div>
                 <div className="bill__id">
                     [Đơn hàng #{preview?.orderId.slice(0, 8)}] {" "}
-                    {formatDate(preview?.expectedDeliveryTime)}
+                    {/* {formatDate(preview?.expectedDeliveryTime)}  */}
+                    <span>sẽ được giao từ 4-5 ngày và</span>
+                    {param ? <span> đã thanh toán ví điện tử</span> : <span> thanh toán bằng tiền mặt khi nhận hàng</span>}
+
                 </div>
                 <div className="bill__table">
                     <table >
@@ -155,17 +158,19 @@ function Bill(props) {
                         </div>
                         <div className="bill__addres-home-distric">
                             {preview?.address?.districtName}
-
                         </div>
                         <div className="bill__addres-home-province">
                             {preview?.address?.provinceName}
-
+                        </div>
+                        <div className="bill__addres-home-phone" style={{ color: "var(--primary-color)" }}>
+                            {preview?.address?.note}
                         </div>
                         <div className="bill__addres-home-phone">
                             <a href={`tel:${preview?.address?.phone}`}>
                                 {preview?.address?.phone}
                             </a>
                         </div>
+
                     </div>
                 </div>
                 <div className="bill__thanks">

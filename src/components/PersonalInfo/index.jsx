@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiOutlineUser, AiOutlinePlus, AiOutlineCheckCircle } from "react-icons/ai";
 import { FaClipboardList } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
@@ -7,19 +7,41 @@ import BillList from './BillList';
 import Location from './Location';
 import Info from './Info';
 import './style.css';
+import callApi from '../../utils/callApi';
+import cookies from 'react-cookies';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPersonalInfoById } from '../../redux/personalInfo/apiFunctionPersonal';
 
 function PersonalInfo(props) {
+    const accessUser = cookies.load("userToken");
     const [display, setDisplay] = useState(1);
+    const [infoUser, setInfoUser] = useState(null);
+
+    const getInfoUserById = async () => {
+        const res = await callApi("/customers/get", "POST", {
+            customerId: accessUser.userId,
+        });
+        setInfoUser(res.data.result);
+    }
+    // const dispatch = useDispatch();
+    // const infoUser = useSelector(state => state.personalInfo.info);
+
+    useEffect(() => {
+        getInfoUserById();
+    }, []);
+
+
     return (
+        infoUser &&
         <div className="grid wide">
             <div className="personal-container">
                 <div className="personal__sidebar">
                     <div className="sidebar__header">
-                        <img className="sidebar__header-img" src="https://thumbs.dreamstime.com/b/male-avatar-icon-flat-style-male-user-icon-cartoon-man-avatar-hipster-vector-stock-91462914.jpg"
-                            alt='avt-user' />
+                        {/* <img className="sidebar__header-img" src={infoUser.picture === null ? "https://thumbs.dreamstime.com/b/male-avatar-icon-flat-style-male-user-icon-cartoon-man-avatar-hipster-vector-stock-91462914.jpg" : infoUser.picture}
+                            alt='avt-user' /> */}
                         <div className="sidebar__header-info">
                             <span>Tài khoản của</span>
-                            <strong>Thach Ngoc Hai</strong>
+                            <strong>{infoUser.fullName}</strong>
                         </div>
                     </div>
                     <ul className="sidebar__list-link">
@@ -52,11 +74,12 @@ function PersonalInfo(props) {
                         </li>
                     </ul>
                 </div>
-                {display === 1 ? <Info /> : null}
+                {display === 1 ? infoUser && <Info infoUser={infoUser} /> : null}
                 {display === 2 ? <BillList /> : null}
                 {display === 3 ? <Location /> : null}
             </div>
         </div >
+
     );
 }
 

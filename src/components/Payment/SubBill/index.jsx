@@ -168,7 +168,7 @@ function SubBill({ fee, address, store }) {
                             Tạm tính
                         </div>
                         <div className="payment__info-list__total-price">
-                            {formatPrice(totalPriceTemp)}đ
+                            {formatPrice(+totalPriceTemp)}đ
                         </div>
                     </div>
 
@@ -177,7 +177,7 @@ function SubBill({ fee, address, store }) {
                             Giao hàng
                         </div>
                         <div className="payment__info-list__ship-price">
-                            {formatPrice(fee)}đ
+                            {formatPrice(+fee)}đ
                         </div>
                     </div>
 
@@ -186,7 +186,7 @@ function SubBill({ fee, address, store }) {
                             Tổng
                         </div>
                         <div className="payment__info-list__ship-price toltal__price">
-                            {formatPrice(totalPriceTemp + fee)}đ
+                            {formatPrice((totalPriceTemp) + (fee))}đ
                         </div>
                     </div>
                 </div>

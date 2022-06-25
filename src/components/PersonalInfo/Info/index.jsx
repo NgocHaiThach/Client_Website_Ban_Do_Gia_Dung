@@ -1,39 +1,30 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { days, months, years } from '../../../utils/constances';
-import SelectField from '../../Selectfield';
-import TextField2 from '../../TextField2';
-import { BsTelephone } from "react-icons/bs";
-import { BiLockAlt } from "react-icons/bi";
-import { AiOutlineMail } from "react-icons/ai";
-import './style.css';
+import { useEffect, useState } from 'react';
 import cookies from 'react-cookies';
 import callApi from '../../../utils/callApi';
-import RighInfo from './RighInfo';
 import LeftInfo from './LeftInfo';
+import RighInfo from './RighInfo';
+import './style.css';
 import UpdateInfo from './UpdateInfo';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { getPersonalInfoById } from '../../../redux/personalInfo/apiFunctionPersonal';
 
 
-function Info(props) {
+function Info({ infoUser }) {
 
-    const accessUser = cookies.load("userToken");
+    // const accessUser = cookies.load("userToken");
 
     const [display, setDisplay] = useState(1);
 
-    const [infoUser, setInfoUser] = useState(null);
+    // const [infoUser, setInfoUser] = useState(null);
 
-    const getInfoUserById = async () => {
-        const res = await callApi("/customers/get", "POST", {
-            customerId: accessUser.userId,
-        });
-        setInfoUser(res.data.result);
-    }
+    // const getInfoUserById = async () => {
+    //     const res = await callApi("/customers/get", "POST", {
+    //         customerId: accessUser.userId,
+    //     });
+    //     setInfoUser(res.data.result);
+    // }
 
-    useEffect(() => {
-        getInfoUserById();
-    }, []);
+    // useEffect(() => {
+    //     getInfoUserById();
+    // }, []);
 
 
     return (

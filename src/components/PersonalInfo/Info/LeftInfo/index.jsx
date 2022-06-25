@@ -1,15 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react';
 import { Form, Formik } from 'formik';
-import * as Yup from "yup";
-import TextField2 from '../../../TextField2';
-import { days, months, typeSexs, years } from '../../../../utils/constances';
-import { useSelector } from 'react-redux';
-import TextField from '../../../TextField';
-import SelectField from '../../../Selectfield';
-import { updatePersonalInfoById } from '../../../../redux/personalInfo/apiFunctionPersonal';
+import { useEffect, useRef, useState } from 'react';
 import cookies from 'react-cookies';
-
-
+import * as Yup from "yup";
+import { getPersonalInfoById, updatePersonalInfoById } from '../../../../redux/personalInfo/apiFunctionPersonal';
+import callApi from '../../../../utils/callApi';
+import { typeSexs } from '../../../../utils/constances';
+import TextField2 from '../../../TextField2';
+import { toast, ToastContainer } from 'react-toastify';
+import { useDispatch } from 'react-redux';
 
 function LeftInfo({ infoUser }) {
 
@@ -20,27 +18,16 @@ function LeftInfo({ infoUser }) {
         phone: Yup.string()
             .required("Trường này bắt buộc"),
         email: Yup.string(),
-        d: Yup.string().required("Trường này bắt buộc"),
-        m: Yup.string().required("Trường này bắt buộc"),
-        y: Yup.string().required("Trường này bắt buộc"),
     });
+
+    const style = {
+        fontSize: 17
+    };
 
     const accessUser = cookies.load("userToken");
 
 
-
     let { fullName, phone, email, dateOfBirth, gender, picture } = infoUser;
-
-    let date = '';
-    let d = '';
-    let m = '';
-    let y = '';
-    if (dateOfBirth !== null) {
-        date = new Date(dateOfBirth);
-        d = date.getDate();
-        m = date.getMonth();
-        y = date.getFullYear();
-    }
 
     const [typeSex, setTypeSex] = useState(gender);
     const [contentPicture, setContentPicure] = useState(picture);
@@ -90,7 +77,9 @@ function LeftInfo({ infoUser }) {
     }
 
     const onLoad = fileString => {
-        setContentPicure(fileString);
+        var strImage = fileString.replace(/^data:image\/[a-z]+;base64,/, "");
+        // console.log('length', strImage);
+        setContentPicure(strImage);
         setIsUrl(false);
     };
 
@@ -104,6 +93,8 @@ function LeftInfo({ infoUser }) {
 
     const [dateBirth, setDateBirth] = useState(dateOfBirth);
 
+    const dispatch = useDispatch();
+
     return (
         <div className="personal__info-left">
             <span className="info__left-header">Thông tin cá nhân</span>
@@ -114,9 +105,6 @@ function LeftInfo({ infoUser }) {
                             name: fullName || '',
                             phone: phone || "",
                             email: email || "",
-                            d: d || "",
-                            m: m || "",
-                            y: y || "",
                         }
                     }
                     validationSchema={validate}
@@ -125,12 +113,20 @@ function LeftInfo({ infoUser }) {
                             name,
                             phone,
                             email,
-                            d,
-                            m,
-                            y,
                         } = values;
-                        console.log(accessUser.userId, name, contentPicture, isUrl, dateBirth, typeSex);
+                        // console.log(accessUser.userId, name, contentPicture, isUrl, dateBirth, typeSex);
                         updatePersonalInfoById(accessUser.userId, name, contentPicture, isUrl, dateBirth, typeSex);
+                        getPersonalInfoById(dispatch, accessUser.userId);
+                        toast.info('Cập nhật thông tin thành công!', {
+                            position: "bottom-right",
+                            autoClose: 3000,
+                            hideProgressBar: true,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                        });
+
                     }}
                 >
                     {(formik) => (
@@ -141,6 +137,7 @@ function LeftInfo({ infoUser }) {
                                         <div>
                                             <div className="form-avatar-view">
                                                 <img className="avatar-default" src={preview === undefined ? contentPicture : preview} alt="avatar" />
+                                                {/* <img className="avatar-default" src={contentPicture} alt="avatar2" /> */}
                                                 <div className="form-avatar-edit">
                                                     <img onClick={onClickChoosFile} src="https://frontend.tikicdn.com/_desktop-next/static/img/account/edit.png" alt="edit" />
                                                     <input
@@ -249,6 +246,7 @@ function LeftInfo({ infoUser }) {
                     )}
                 </Formik>
             </div>
+            <ToastContainer style={style} />
         </div >
     );
 }
