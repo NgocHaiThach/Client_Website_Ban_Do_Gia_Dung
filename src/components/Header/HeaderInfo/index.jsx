@@ -19,7 +19,6 @@ function HeaderInfo(props) {
     // const [infoUser, setInfoUser] = useState();
 
     const infoUser = useSelector(state => state.personalInfo.info);
-    console.log("info", infoUser);
 
     const history = useHistory();
     const dispatch = useDispatch();

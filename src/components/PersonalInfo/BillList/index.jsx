@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { AiOutlineSearch, AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import './style.css';
 import callApi from '../../../utils/callApi';
 import cookies from 'react-cookies';
 import { useEffect } from 'react';
-import { formatPrice } from '../../../utils/format';
+import { FormatInput, formatPrice } from '../../../utils/format';
 
 
 function BillList(props) {
-    const image = 'https://salt.tikicdn.com/cache/200x200/ts/product/8d/ce/08/ede7a5fbd0130f25cb42fac00c65eaa7.jpg'
 
     const [listActive, setListActive] = useState(0);
     const [listBill, setListBill] = useState([]);
@@ -21,6 +20,11 @@ function BillList(props) {
 
     const accessUser = cookies.load("userToken");
 
+    const [listToSearch, setListToSearch] = useState([]);
+    const [search, setSearch] = useState('');
+    const [input, setInput] = useState('');
+    const typingTimoutRef = useRef(null);
+
     const getListBillByIdUser = async () => {
         setIsLoading(true);
         const res = await callApi("/orders/get", "POST", {
@@ -31,6 +35,7 @@ function BillList(props) {
         })
         // console.log("bill list", res.data.result.orders);
         setListBill(res.data.result.orders);
+        setListToSearch(res.data.result.orders);
         setIsLoading(false);
         setTotalPage(res.data.result.totalPage)
     }
@@ -54,6 +59,7 @@ function BillList(props) {
         if (listActive === 5) {
             getListBillCanl();
         }
+
     }, [currentPage, accessUser.userId, sizePage, listActive]);
 
     const getBillListPrev = () => {
@@ -120,6 +126,8 @@ function BillList(props) {
         )
     }
 
+
+
     const getListBillPaying = async () => {
         setIsLoading(true);
         const res = await callApi("/orders/get", "POST", {
@@ -130,6 +138,7 @@ function BillList(props) {
         })
         // console.log("bill list", res.data.result.orders);
         setListBill(res.data.result.orders);
+        setListToSearch(res.data.result.orders);
         setIsLoading(false);
         setTotalPage(res.data.result.totalPage)
         setListActive(1)
@@ -145,6 +154,7 @@ function BillList(props) {
         })
         // console.log("bill list", res.data.result.orders);
         setListBill(res.data.result.orders);
+        setListToSearch(res.data.result.orders);
         setIsLoading(false);
         setTotalPage(res.data.result.totalPage);
         setListActive(2);
@@ -160,6 +170,7 @@ function BillList(props) {
         })
         // console.log("bill list", res.data.result.orders);
         setListBill(res.data.result.orders);
+        setListToSearch(res.data.result.orders);
         setIsLoading(false);
         setTotalPage(res.data.result.totalPage);
         setListActive(3);
@@ -190,9 +201,75 @@ function BillList(props) {
         })
         // console.log("bill list", res.data.result.orders);
         setListBill(res.data.result.orders);
+        setListToSearch(res.data.result.orders);
         setIsLoading(false);
         setTotalPage(res.data.result.totalPage);
         setListActive(5);
+    }
+
+    //SEARCH    
+
+
+
+    // const getToSearch = async () => {
+    //     if (listActive === 0) {
+    //         getListBillByIdUser();
+    //     }
+    //     if (listActive === 1) {
+    //         getListBillPaying();
+    //     }
+    //     if (listActive === 2) {
+    //         getListBillProcessing();
+    //     }
+    //     if (listActive === 3) {
+    //         getListBillDoing();
+    //     }
+    //     if (listActive === 4) {
+    //         getListBillDone();
+    //     }
+    //     if (listActive === 5) {
+    //         getListBillCanl();
+    //     }
+    // }
+
+    const onSearch = (e) => {
+        const input = e.target.value
+        setSearch(input)
+
+        if (typingTimoutRef.current) {
+            clearTimeout(typingTimoutRef.current)
+        }
+
+        typingTimoutRef.current = setTimeout(() => {
+            const formvalues = {
+                search: input,
+            }
+            if (handleSearch) {
+                handleSearch(formvalues)
+            }
+        }, 300)
+
+    }
+
+    //xu ly search product
+    const handleSearch = (input) => {
+        const val = FormatInput(input.search)
+        // const filter = listToSearch.filter((item) => {
+        //     const name = FormatInput(item.orderId)
+        //     if (name.includes(val)) {
+        //         return item
+        //     }
+        // });
+
+        let filter = [];
+        for (let i = 0; i < listToSearch.length; i++) {
+            if (listToSearch[i].products.find(i => FormatInput(i.name).includes(val))) {
+                filter.push(listToSearch[i])
+            }
+        }
+        setListBill(filter);
+        setInput(input)
+
     }
 
 
@@ -242,15 +319,14 @@ function BillList(props) {
                 </div>
                 <div className="info__search">
                     <AiOutlineSearch className="info__search-icon" />
-                    <input className="info__search-input" placeholder="Tìm đơn hàng..." />
+                    <input
+                        className="info__search-input"
+                        placeholder="Tìm đơn hàng..."
+                        value={search}
+                        onChange={onSearch}
+                    />
                 </div>
                 <div className="bill__pagination">
-                    {/* <select defaultValue={'DEFAULT'} id="cars">
-                        <option value="DEFAULT" disabled>Size</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4" selected>4</option>
-                    </select> */}
                     {totalPage === 0 ? null :
                         <>
                             <select className="bill__size" defaultValue={'DEFAULT'} onChange={(e) => handleSelectSizPage(e)} >
@@ -283,11 +359,6 @@ function BillList(props) {
                                             <div>
                                                 <div className="bill__item-product">
                                                     <div className="bill__item-detail">
-                                                        {/* <div className="bill__item-img"
-                                style={{
-                                    backgroundImage: `url(${pro.avatar})`,
-                                }}>
-                            </div> */}
                                                         <img src={pro.avatar} alt="image product" className="bill__item-img" />
                                                         <div className="bill__item-info">
                                                             <p className="bill__item-name">{pro.name}</p>
@@ -357,7 +428,6 @@ function BillList(props) {
                             {currentPage === totalPage - 1 ? null : <AiOutlineArrowRight onClick={getBillListNext} />}
                         </>
                     }
-
                 </div>
             </div>
         </div >

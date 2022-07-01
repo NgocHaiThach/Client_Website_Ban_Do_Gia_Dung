@@ -1,6 +1,6 @@
 import React from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import './style.css';
 import * as yup from 'yup';
 import callApi from '../../utils/callApi';
@@ -22,52 +22,32 @@ function ConfirmAccount(props) {
 
     const history = useHistory();
 
+    const { phone } = useParams();
+
     const handleOnSubmit = async (data) => {
 
-        // try {
-        //     await callApi('/customers/register', 'POST', {
-        //         phone: data.username,
-        //         password: data.password,
-        //     })
-        //         .then(res => {
-        //             // console.log('res', res)
-        //             if (res.status === 200) {
-        //                 console.log('success', res)
+        try {
+            await callApi('/customers/verify', 'POST', {
+                phone: phone,
+                code: data.confirm,
+            })
+                .then(res => {
+                    // console.log('res', res)
+                    if (res.status === 200) {
+                        console.log('success', res);
 
-        //                 // cookies.save('userToken', {
-        //                 //     userPhone: res.data.result.phone,
-        //                 //     userId: res.data.result.customerId,
-        //                 //     token: res.data.result.token,
-        //                 // })
-        //                 // localStorage.setItem('userToken', JSON.stringify({
-        //                 //     userId: res.data.result.phone,
-        //                 //     token: res.data.result.token
-        //                 // }))
-        //                 // const action = login(jwt_decode(res.data.token).UserName)
-        //                 // dispath(action)
-        //                 // getCarts(dispath, res.data.token, jwt_decode(res.data.token).UserId)
-        //                 // history.push('/')
-        //             }
-        //             else if (res.status !== 200) {
-        //                 console.log('dang nhap that bai')
-        //                 // loginFaild = true
-        //             }
-        //         })
-        //         .catch(err => {
-        //             console.log(err)
-        //             // setStatus('hai123462734567')
-        //             // console.log('loginFail', status)
-        //             alert('Tài khoản hoặc mật khẩu sai vui lòng kiểm tra lại')
+                        history.push('/login');
+                    }
+                })
+                .catch(err => {
+                    console.log(err)
+                    alert('Mã xác thực không hợp lệ. Vui lòng kiểm tra lại');
 
-        //         })
-        //     // if (loginFaild === false) {
-        //     //     history.push('/home/all')
-        //     // }
-        // }
-        // catch (err) {
-        //     alert('Tài khoản không tồn tại')
-        // }
-        console.log("confirm", data);
+                })
+        }
+        catch (err) {
+            alert('Mã xác thực không hợp lệ. Vui lòng kiểm tra lại');
+        }
     }
 
     const onSubmit = (data, e) => {

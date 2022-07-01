@@ -54,6 +54,9 @@ function StoreInfo({
         setListFee(res.data.result);
         setFee(res.data.result[0]?.fee);
         setStore(res.data.result[0]);
+        if (res.data.result.length <= 0) {
+            alert("Sản phẩm đã hết hàng. Vui lòng chọn sản phẩm khác");
+        }
 
     }
 
@@ -62,7 +65,6 @@ function StoreInfo({
     useEffect(() => {
         if (address?.addressId) {
             getFeeAddress(address?.addressId);
-            console.log('a');
         }
     }, [address])
     //handle Select

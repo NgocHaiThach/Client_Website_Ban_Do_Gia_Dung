@@ -29,51 +29,28 @@ function Register(props) {
             await callApi('/customers/register', 'POST', {
                 phone: data.username,
                 password: data.password,
+                confirmPassword: data.repeatPassword
             })
                 .then(res => {
                     // console.log('res', res)
                     if (res.status === 200) {
-                        console.log('success', res)
-
-                        // cookies.save('userToken', {
-                        //     userPhone: res.data.result.phone,
-                        //     userId: res.data.result.customerId,
-                        //     token: res.data.result.token,
-                        // })
-                        // localStorage.setItem('userToken', JSON.stringify({
-                        //     userId: res.data.result.phone,
-                        //     token: res.data.result.token
-                        // }))
-                        // const action = login(jwt_decode(res.data.token).UserName)
-                        // dispath(action)
-                        // getCarts(dispath, res.data.token, jwt_decode(res.data.token).UserId)
-                        // history.push('/')
-                    }
-                    else if (res.status !== 200) {
-                        console.log('dang nhap that bai')
-                        // loginFaild = true
+                        console.log('success', res);
+                        history.push(`/confirm/${data.username}`);
                     }
                 })
                 .catch(err => {
                     console.log(err)
-                    // setStatus('hai123462734567')
-                    // console.log('loginFail', status)
-                    alert('Tài khoản hoặc mật khẩu sai vui lòng kiểm tra lại')
-
+                    alert('Tài khoản đã tồn tại. Vui lòng kiểm tra lại');
                 })
-            // if (loginFaild === false) {
-            //     history.push('/home/all')
-            // }
         }
         catch (err) {
-            alert('Tài khoản không tồn tại')
+            alert('Tài khoản đã tồn tại. Vui lòng kiểm tra lại');
         }
     }
 
     const onSubmit = (data, e) => {
         e.preventDefault();
         if (handleOnSubmit) handleOnSubmit(data)
-        console.log(data)
     }
     return (
         <div className="modal" >
@@ -91,27 +68,6 @@ function Register(props) {
                         </div>
 
                         <div className="auth-form__form">
-                            {/* <div className="auth-form__group">
-                                <input
-                                    name="email"
-                                    // {...register("email")}
-                                    type="text"
-                                    placeholder="Email của bạn"
-                                    className="auth-form__iput" />
-                            </div>
-                            {errors?.email?.type === "required" && <p className="valid-form__message">Vui lòng nhập email</p>}
-                            {errors?.email?.type === "email" && <p className="valid-form__message">Vui lòng nhập đúng email</p>} */}
-
-                            {/* <div className="auth-form__group">
-                                <input
-                                    name="fullname"
-                                    // {...register("fullname")}
-                                    type="text"
-                                    placeholder="Tên người dùng"
-                                    className="auth-form__iput" />
-                            </div>
-                            {errors?.fullname?.type === "required" && <p className="valid-form__message">Vui lòng nhập tên người dùng</p>} */}
-
                             <div className="auth-form__group">
                                 <input
                                     name="username"
@@ -164,7 +120,7 @@ function Register(props) {
                             <button
                                 className="btn btn--primary auth-form__controls-login"
                                 type="submit"
-                            // onClick={handleSubmit(onSubmit)}
+                                onClick={handleSubmit(onSubmit)}
                             >
                                 ĐĂNG KÝ
                             </button>
