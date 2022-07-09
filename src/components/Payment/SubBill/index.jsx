@@ -16,7 +16,7 @@ import IMG_BANK_5 from '../../../assets/images/pyicon-5.svg';
 
 
 
-function SubBill({ fee, address, store }) {
+function SubBill({ fee, address, store, noteBill }) {
 
     const style = {
         fontSize: 17
@@ -54,60 +54,73 @@ function SubBill({ fee, address, store }) {
     const handleOrder = async () => {
         if (address !== null) {
             if (typePay === 1) {
-                const res = await callApi('/orders/create/cod', 'POST', {
-                    customerId: accessUser.userId,
-                    addressId: address.addressId,
-                    storeId: store.store.storeId,
-                    note: "",
-                });
+                if (noteBill !== '') {
+                    const res = await callApi('/orders/create/cod', 'POST', {
+                        customerId: accessUser.userId,
+                        addressId: address.addressId,
+                        storeId: store.store.storeId,
+                        note: noteBill,
+                    });
 
-                localStorage.setItem('infoPayment', (res.data.result.orderId));
+                    localStorage.setItem('infoPayment', (res.data.result.orderId));
 
-                toast.info('Đặt hàng thành công', {
-                    position: "bottom-right",
-                    autoClose: 3000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                });
-                history.push(`/bill/${accessUser.userId}`);
-                getListCartByIdUser(dispatch, accessUser.userId);
+
+                    // history.push(`/bill/${accessUser.userId}`);
+                    getListCartByIdUser(dispatch, accessUser.userId);
+                    toast.info('Đặt hàng thành công', {
+                        position: "bottom-right",
+                        autoClose: 3000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                }
+                else {
+                    alert("Vui lòng nhập ghi chú");
+                }
+
             }
             else {
-                await callApi('/orders/create/onl', 'POST', {
-                    customerId: accessUser.userId,
-                    addressId: address.addressId,
-                    storeId: store.store.storeId,
-                    note: "",
-                    returnUrl: `http://localhost:9999/bill/${accessUser.userId}`,
-                })
-                    .then(res => {
-                        // console.log('res', res)
-                        if (res.status === 200) {
-                            window.location.href = `${res.data.result}`;
-                        }
-                        else if (res.status === 400) {
-                            alert('thanh toan that bai')
-                            // loginFaild = true
-                        }
+                if (noteBill !== "") {
+                    await callApi('/orders/create/onl', 'POST', {
+                        customerId: accessUser.userId,
+                        addressId: address.addressId,
+                        storeId: store.store.storeId,
+                        note: noteBill,
+                        returnUrl: `http://localhost:3000/bill/${accessUser.userId}`,
                     })
-                    .catch(err => { console.log(err) })
+                        .then(res => {
+                            // console.log('res', res)
+                            if (res.status === 200) {
+                                window.location.href = `${res.data.result}`;
+                            }
+                            else if (res.status === 400) {
+                                alert('thanh toan that bai')
+                                // loginFaild = true
+                            }
+                        })
+                        .catch(err => { console.log(err) })
 
-                // localStorage.setItem('infoPayment', (res.data.result.orderId));
+                    // localStorage.setItem('infoPayment', (res.data.result.orderId));
 
-                toast.info('Đặt hàng thành công', {
-                    position: "bottom-right",
-                    autoClose: 3000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                });
-                getListCartByIdUser(dispatch, accessUser.userId);
-                // history.push(`/bill/${accessUser.userId}`);
+                    toast.info('Đặt hàng thành công', {
+                        position: "bottom-right",
+                        autoClose: 3000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                    getListCartByIdUser(dispatch, accessUser.userId);
+                    // history.push(`/bill/${accessUser.userId}`);
+                }
+                else {
+                    alert("Vui lòng nhập ghi chú");
+                }
+
             }
 
         }

@@ -90,12 +90,17 @@ function Login(props) {
         console.log(data)
     }
 
-    const passgg = (googleData) => {
-        alert(googleData);
+    const passgg = async (googleData) => {
+        const res = await callApi("/oauth/login", "GET", null);
+        if (res.status === 200) {
+            // history.push('/home');
+            window.location.href = `${res.data.result}`;
+        }
+        console.log("resgg", res);
     }
 
     const failgg = (result) => {
-        console.log(result.error)
+        console.log(result)
     }
 
     return (
@@ -175,13 +180,25 @@ function Login(props) {
                                 Kết nối với Google
                             </span>
                         </a> */}
+                        <button onClick={passgg}>abc</button>
+                        {/* 
                         <GoogleLogin
-                            clientId="638264711706-8jb62dnthda73codtm13f6limn78ckh4.apps.googleusercontent.com"
-                            buttonText="Login"
+                            clientId="255711495560-p9lgiqee38atf9vd3krv0n74qpa2h2b1.apps.googleusercontent.com"
+                            buttonText="Google Login"
                             onSuccess={passgg}
                             onFailure={failgg}
                             cookiePolicy={'single_host_origin'}
-                        />
+                        /> */}
+
+                        {/* <GoogleLogin
+                            clientId={googleApi}
+                            buttonText="Login with Google"
+                            onSuccess={responseGoogle}
+                            onFailure={responseGoogle}
+                            cookiePolicy={"single_host_origin"}
+                            className="google-button mt-16"
+                        /> */}
+
                     </div>
                 </div>
             </div>

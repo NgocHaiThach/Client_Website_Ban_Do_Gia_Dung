@@ -32,6 +32,7 @@ function Payment(props) {
 
     const [fee, setFee] = useState(0);
     const [store, setStore] = useState(null);
+    const [noteBill, setNoteBill] = useState('');
 
     return (
         <>
@@ -50,6 +51,7 @@ function Payment(props) {
                                 <AddressInfo
                                     address={address}
                                     setAddress={setAddress}
+                                    setNoteBill={setNoteBill}
                                 />
                                 <StoreInfo
                                     address={address}
@@ -63,6 +65,7 @@ function Payment(props) {
                                 address={address}
                                 fee={fee}
                                 store={store}
+                                noteBill={noteBill}
                             />
                         </div>
                     </div>

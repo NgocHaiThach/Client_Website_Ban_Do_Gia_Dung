@@ -91,7 +91,7 @@ function LeftInfo({ infoUser }) {
         };
     };
 
-    const [dateBirth, setDateBirth] = useState(dateOfBirth);
+    const [dateBirth, setDateBirth] = useState(dateOfBirth.split('T')[0]);
 
     const dispatch = useDispatch();
 
@@ -212,7 +212,7 @@ function LeftInfo({ infoUser }) {
                             <div className="info__input-field">
                                 <label>Ngày sinh:</label>
                                 <input style={{ fontSize: "15px", height: "28px", marginLeft: "15px" }}
-                                    type="datetime-local"
+                                    type="date"
                                     value={dateBirth}
                                     onChange={e => setDateBirth(e.target.value)}
                                 />

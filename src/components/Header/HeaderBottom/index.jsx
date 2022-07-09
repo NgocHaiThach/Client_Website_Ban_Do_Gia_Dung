@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { deleteProductToCartByUser, getListCartByIdUser } from '../../../redux/cart/apiFunctionCart';
 import './style.css';
 import cookies from 'react-cookies';
 import { useDispatch, useSelector } from 'react-redux';
-import { formatPrice } from '../../../utils/format';
+import { FormatInput, formatPrice } from '../../../utils/format';
 import { FaShoppingCart } from "react-icons/fa";
 import { AiOutlineSearch } from "react-icons/ai";
+import callApi from '../../../utils/callApi';
+import { getListSearchProduct } from '../../../redux/searchProduct/apiFunctionSearchProduct';
+
 
 
 function HeaderBottom(props) {
@@ -25,7 +28,44 @@ function HeaderBottom(props) {
         deleteProductToCartByUser(dispatch, accessUser?.userId, idProduct);
     }
 
-    console.log(listCart)
+    const [listToSearch, setListToSearch] = useState([]);
+    const [search, setSearch] = useState('');
+    const [input, setInput] = useState('');
+    const typingTimoutRef = useRef(null);
+
+    const onSearch = (e) => {
+        const input = e.target.value
+        setSearch(input)
+
+        if (typingTimoutRef.current) {
+            clearTimeout(typingTimoutRef.current)
+        }
+
+        typingTimoutRef.current = setTimeout(() => {
+            const formvalues = {
+                search: input,
+            }
+            if (handleSearch) {
+                handleSearch(formvalues)
+            }
+        }, 300)
+
+    }
+
+    const history = useHistory();
+
+    //xu ly search product
+    const handleSearch = (input) => {
+        const val = (input.search)
+        // const res = await callApi("/products/search", "POST", {
+        //     content: val
+        // })
+        if (val !== '') {
+            getListSearchProduct(dispatch, val);
+            setInput(input);
+            history.push(`/search/${val}`);
+        }
+    }
     return (
         <div className="grid wide">
             <div className="header-bottom">
@@ -42,6 +82,9 @@ function HeaderBottom(props) {
                     <input
                         className="header-bottom_search-input"
                         type="text" placeholder="Tìm kiếm..."
+                        value={search}
+                        onChange={onSearch}
+
                     />
                     <button className="header-bottom_search-btn"> <AiOutlineSearch /></button>
 

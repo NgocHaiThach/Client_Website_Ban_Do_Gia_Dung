@@ -6,6 +6,7 @@ import infoUserLoginReducer from './infoUserLogin/infoUserLoginSlice';
 import addressReducer from './address/addressSlice';
 import paymentInfoReducer from './paymentInfo/paymentInfoSlice';
 import personalInfoReudcer from './personalInfo/personalInfoSlice';
+import searchProductReducer from './searchProduct/searchProductSlice';
 
 
 const rootReducer = {
@@ -16,6 +17,7 @@ const rootReducer = {
     addressList: addressReducer,
     paymentInfo: paymentInfoReducer,
     personalInfo: personalInfoReudcer,
+    searchProduct: searchProductReducer,
 };
 
 const store = configureStore({

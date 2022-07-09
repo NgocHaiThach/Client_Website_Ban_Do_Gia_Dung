@@ -21,6 +21,7 @@ const Bill = React.lazy(() => import('./components/Bill'));
 const Payment = React.lazy(() => import('./components/Payment'));
 const PersonalInfo= React.lazy(() => import('./components/PersonalInfo'));
 const ConfirmAccount = React.lazy(() => import('./components/ConfirmAccount'));
+const SearchProduct = React.lazy(() => import('./components/SearchProduct'));
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
             <Route exact path="/home" component={Content} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
+            <Route exact path="/search/:input" component={SearchProduct} />
             <Route exact path="/confirm/:phone" component={ConfirmAccount} />
             <Route exact path="/product/:id" component={ProductDetailFeature} />
             <Route exact path="/cart" component={CartDetail} />

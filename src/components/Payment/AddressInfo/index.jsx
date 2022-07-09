@@ -8,6 +8,7 @@ import { FaChevronDown } from "react-icons/fa";
 function AddressInfo({
     setAddress,
     address,
+    setNoteBill,
 }) {
 
     const dispatch = useDispatch();
@@ -87,6 +88,7 @@ function AddressInfo({
                                                 <div className="location__item-phone">
                                                     <span>Ghi chú:</span> {" "}
                                                     {item.note}
+
                                                 </div>
                                             </div>
                                         </li>
@@ -136,9 +138,10 @@ function AddressInfo({
 
 
                     <div className="info-user">
-                        <span>Ghi Chú:</span>
+                        <span>Ghi chú:</span>
                         <div>
-                            {address?.note}
+                            {/* {address?.note} */}
+                            <input onChange={(e) => setNoteBill(e.target.value)} type="text" placeholder="Ghi chú ..." className="note-bill__input" />
                         </div>
                     </div>
 

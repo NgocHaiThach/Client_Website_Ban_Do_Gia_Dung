@@ -282,12 +282,12 @@ function BillList(props) {
             <div className="bill__info-container">
                 <div className="info__title-list">
                     <div
-                        onClick={() => setListActive(0)}
+                        onClick={() => { return setCurrentPage(0), setListActive(0) }}
                         className={listActive === 0 ? "info__title-item-active" : "info__title-item"}
                     >
                         Tất cả đơn
                     </div>
-                    <div onClick={getListBillPaying}
+                    <div onClick={() => { return setCurrentPage(0), getListBillPaying() }}
                         className={listActive === 1 ? "info__title-item-active" : "info__title-item"}
                     >
                         Chờ thanh toán
@@ -299,19 +299,19 @@ function BillList(props) {
                         Đang xử lý
                     </div>
                     <div
-                        onClick={getListBillDoing}
+                        onClick={() => { return setCurrentPage(0), getListBillDoing() }}
                         className={listActive === 3 ? "info__title-item-active" : "info__title-item"}
                     >
                         Đang vận chuyển
                     </div>
                     <div
-                        onClick={getListBillDone}
+                        onClick={() => { return setCurrentPage(0), getListBillDone() }}
                         className={listActive === 4 ? "info__title-item-active" : "info__title-item"}
                     >
                         Đã giao
                     </div>
                     <div
-                        onClick={getListBillCanl}
+                        onClick={() => { return setCurrentPage(0), getListBillCanl() }}
                         className={listActive === 5 ? "info__title-item-active" : "info__title-item"}
                     >
                         Đã hủy
