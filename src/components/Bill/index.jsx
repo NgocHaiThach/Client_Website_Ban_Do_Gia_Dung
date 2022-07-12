@@ -48,13 +48,13 @@ function Bill(props) {
                     <p> Xin chào {" "}
                         {preview?.address.name},
                     </p>
-                    <p> Đơn hàng #{preview?.orderId.slice(0, 8)} đã được đặt thành công  {formatDate(preview?.expectedDeliveryTime)}{" "} và chúng tôi đang xử lý</p>
+                    <p> Đơn hàng #{preview?.orderId.slice(0, 8)} đã được đặt thành công  {formatDate(preview?.orderDate)}{" "} và chúng tôi đang xử lý</p>
 
                 </div>
                 <div className="bill__id">
                     [Đơn hàng #{preview?.orderId.slice(0, 8)}] {" "}
                     {/* {formatDate(preview?.expectedDeliveryTime)}  */}
-                    <span>sẽ được giao từ 4-5 ngày và</span>
+                    <span>sẽ được giao trong thời gian sớm nhất và</span>
                     {param ? <span> đã thanh toán ví điện tử</span> : <span> thanh toán bằng tiền mặt khi nhận hàng</span>}
 
                 </div>

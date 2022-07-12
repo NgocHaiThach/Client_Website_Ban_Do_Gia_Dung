@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import './style.css';
@@ -96,8 +96,11 @@ function Login(props) {
             // history.push('/home');
             window.location.href = `${res.data.result}`;
         }
-        console.log("resgg", res);
     }
+
+    const queryParams = (window.location.href);
+
+    console.log("current url", queryParams)
 
     const failgg = (result) => {
         console.log(result)
@@ -174,13 +177,13 @@ function Login(props) {
                                 Kết nối với Facebook
                             </span>
                         </a>
-                        {/* <a href="" className="auth-form__socials--google ">
+                        <a onClick={passgg} className="auth-form__socials--google">
                             <i className="auth-form__socials-icon fab fa-google"></i>
                             <span className="auth-form__socials-title">
                                 Kết nối với Google
                             </span>
-                        </a> */}
-                        <button onClick={passgg}>abc</button>
+                        </a>
+                        {/* <button onClick={passgg}>abc</button> */}
                         {/* 
                         <GoogleLogin
                             clientId="255711495560-p9lgiqee38atf9vd3krv0n74qpa2h2b1.apps.googleusercontent.com"

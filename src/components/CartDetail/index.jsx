@@ -114,7 +114,7 @@ function CartDetail(props) {
 
                                                     >-
                                                     </button>
-                                                    <input className="product-quantity__number-text" type="text" defaultValue={item.quantity} />
+                                                    <input className="product-quantity__number-text" type="text" value={item.quantity} />
 
                                                     <button
                                                         className="product-quantity__number-plus"

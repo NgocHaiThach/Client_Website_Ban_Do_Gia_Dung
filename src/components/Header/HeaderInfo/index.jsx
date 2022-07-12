@@ -50,6 +50,7 @@ function HeaderInfo(props) {
     //     getInfoUserById();
     // }, []);
 
+    console.log("acc", accessToken);
 
     return (
         <div className="grid wide">
@@ -69,8 +70,8 @@ function HeaderInfo(props) {
                                 </div>
                             </div>
                         </div> : null}
-                        {/* {accessToken.userId === "" ? accessToken.userId : "Đăng nhập tài khoản"}  */}
-                        {accessToken.userPhone}
+                        {accessToken.userId === "" ? "Đăng nhập tài khoản" : accessToken.userPhone}
+                        {/* {accessToken.userPhone} */}
 
                         <i className="fas fa-chevron-down"></i>
 

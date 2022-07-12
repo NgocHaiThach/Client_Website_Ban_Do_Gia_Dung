@@ -133,6 +133,7 @@
 }
 
 .auth-form__socials--facebook {
+    cursor: pointer;
     background-color: #3a5a98;
     color: var(--white-color);
     height: 35px;
@@ -149,6 +150,7 @@
 }
 
 .auth-form__socials--google {
+    cursor: pointer;
     background-color: var(--white-color);
     color: #666;
     height: 35px;

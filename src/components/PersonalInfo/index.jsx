@@ -30,6 +30,8 @@ function PersonalInfo(props) {
         getInfoUserById();
     }, []);
 
+    console.log('info', accessUser.userId);
+
 
     return (
         infoUser &&

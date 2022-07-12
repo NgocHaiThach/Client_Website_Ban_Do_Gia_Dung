@@ -91,7 +91,7 @@ function LeftInfo({ infoUser }) {
         };
     };
 
-    const [dateBirth, setDateBirth] = useState(dateOfBirth.split('T')[0]);
+    const [dateBirth, setDateBirth] = useState(dateOfBirth?.split('T')[0]);
 
     const dispatch = useDispatch();
 

@@ -65,7 +65,7 @@ function SubBill({ fee, address, store, noteBill }) {
                     localStorage.setItem('infoPayment', (res.data.result.orderId));
 
 
-                    // history.push(`/bill/${accessUser.userId}`);
+                    history.push(`/bill/${accessUser.userId}`);
                     getListCartByIdUser(dispatch, accessUser.userId);
                     toast.info('Đặt hàng thành công', {
                         position: "bottom-right",

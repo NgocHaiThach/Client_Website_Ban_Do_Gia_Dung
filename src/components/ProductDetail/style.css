@@ -30,6 +30,8 @@ img {
 }
 .img-item {
     margin: 0.3rem;
+    width:  80px;
+    height: 80px;
 }
 .img-item:nth-child(1),
 .img-item:nth-child(2),
