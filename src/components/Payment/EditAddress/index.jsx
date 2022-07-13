@@ -207,6 +207,9 @@ function EditAddress({
         }
     });
 
+    const [defaultAddress, setDefaultAddress] = useState(false);
+
+
     return (
         <>
             <div className="modal" >
@@ -256,7 +259,7 @@ function EditAddress({
                                     province, district, ward,
                                     note,
                                     detail,
-                                    idProv, idDistrict, idWard
+                                    idProv, idDistrict, idWard, defaultAddress
                                 );
 
                                 toast.info('Sửa địa chỉ thành công!', {
@@ -341,6 +344,10 @@ function EditAddress({
                                         className="input-field"
                                         placeholder="Ghi chú..."
                                     />
+                                    <div style={{ marginTop: '8px' }}>
+                                        <label>Chọn làm địa chỉ mặc định</label>
+                                        <input checked={defaultAddress} onChange={(e) => setDefaultAddress(e.target.checked)} style={{ marginLeft: '10px' }} type="checkbox" />
+                                    </div>
                                     <div className="auth-form__controls">
 
 

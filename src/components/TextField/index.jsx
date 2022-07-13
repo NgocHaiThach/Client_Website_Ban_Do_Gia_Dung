@@ -3,7 +3,7 @@ import { ErrorMessage, useField } from "formik";
 const TextField = ({ label, className, classNameDiv, ...props }) => {
     const [field, meta] = useField(props);
     return (
-        <div className={`mb-2 ${classNameDiv}`}>
+        <div className={`mb-2 ${classNameDiv}`} style={{ marginTop: '8px' }}>
             <label htmlFor={field.name} style={{ marginTop: '8px' }}>{label}</label>
             <input
                 className={`form-control shadow-none  ${className} ${meta.touched && meta.error && "is-invalid"

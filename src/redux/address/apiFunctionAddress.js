@@ -19,7 +19,7 @@ export const addAddressByUser = async (dispatch,
     id, name, phone, 
     provinceName, districtName, wardName, 
     note, detail, 
-    provinceId, districId, wardId) => {
+    provinceId, districId, wardId,defaultAddress) => {
     try {
         const res = await callApi("/addresses/addaddress", "POST", {
             customerId: id,
@@ -35,7 +35,7 @@ export const addAddressByUser = async (dispatch,
             detail: detail,
             note: note,
             type: true,
-            default: true
+            default: defaultAddress
         })
         getListAddress(dispatch,id)
     }
@@ -49,7 +49,7 @@ export const editAddressByUser = async (dispatch,
     addressId, userId, name, phone, 
     provinceName, districtName, wardName, 
     note, detail,
-    provinceId, districId, wardId
+    provinceId, districId, wardId, defaultAddress
     ) => {
     try {
         const res = await callApi("/addresses/updateaddress", "PUT", {
@@ -67,7 +67,7 @@ export const editAddressByUser = async (dispatch,
             detail: detail,
             note: note,
             type: true,
-            default: false
+            default: defaultAddress
         })
         getListAddress(dispatch,userId);
     }

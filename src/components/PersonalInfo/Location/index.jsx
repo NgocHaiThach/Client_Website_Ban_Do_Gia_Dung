@@ -64,7 +64,7 @@ function Location(props) {
                                     {item.name}
                                     <span>
                                         {/* <AiOutlineCheckCircle /> */}
-                                        {/* {item.default && <span>Địa chỉ mặc định</span>} */}
+                                        {item.default && <span>Địa chỉ mặc định</span>}
                                     </span>
                                 </div>
                                 <div className="location__item-address">

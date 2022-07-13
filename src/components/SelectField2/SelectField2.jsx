@@ -33,7 +33,7 @@ const SelectField2 = ({ label, dtf, valuField, options, ...props }) => {
 
     }
     return (
-        <div className="mb-2">
+        <div className="mb-2" style={{ marginTop: '8px' }}>
             <label htmlFor={field.name}>{label}</label>
             <Select
                 id={name}

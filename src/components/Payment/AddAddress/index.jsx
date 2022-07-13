@@ -214,7 +214,8 @@ function AddAddress({
         }
     });
 
-    const [show, setShow] = useState(false);
+    const [defaultAddress, setDefaultAddress] = useState(false);
+
 
 
     return (
@@ -265,7 +266,7 @@ function AddAddress({
                                     province, district, ward,
                                     note,
                                     detail,
-                                    idProv, idDistrict, idWard);
+                                    idProv, idDistrict, idWard, defaultAddress);
 
                                 toast.info('Thêm địa chỉ thành công!', {
                                     position: "bottom-right",
@@ -292,7 +293,7 @@ function AddAddress({
                                     />
 
                                     <TextField
-                                        label="Tên"
+                                        label="Số điện thoại"
                                         name="phone"
                                         type="text"
                                         className="input-field"
@@ -339,9 +340,11 @@ function AddAddress({
                                         className="input-field"
                                         placeholder="Ghi chú..."
                                     />
+                                    <div style={{ marginTop: '8px' }}>
+                                        <label>Chọn làm địa chỉ mặc định</label>
+                                        <input checked={defaultAddress} onChange={(e) => setDefaultAddress(e.target.checked)} style={{ marginLeft: '10px' }} type="checkbox" />
+                                    </div>
                                     <div className="auth-form__controls">
-
-
                                         <Button
                                             variant="secondary"
                                             className="btn btn--primary auth-form__controls-login"
