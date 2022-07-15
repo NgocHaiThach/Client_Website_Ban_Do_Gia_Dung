@@ -42,17 +42,31 @@ function ProductDetail(props) {
 
     const handleAddToCard = () => {
         if (accessUser !== undefined) {
-            addProductToCartByUser(dispatch, accessUser.userId, id, quantity);
+            if (quantity > 0) {
 
-            toast.info('Thêm vào giỏ hàng thành công!', {
-                position: "bottom-right",
-                autoClose: 3000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
+                addProductToCartByUser(dispatch, accessUser.userId, id, quantity);
+
+                toast.info('Thêm vào giỏ hàng thành công!', {
+                    position: "bottom-right",
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }
+            else {
+                toast.warn('Số lượng không hợp lệ!', {
+                    position: "bottom-right",
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }
         }
         else if (accessUser === undefined) {
             toast.warn('Vui lòng đăng nhập!', {
