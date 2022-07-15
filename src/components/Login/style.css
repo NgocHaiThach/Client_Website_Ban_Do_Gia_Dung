@@ -121,7 +121,8 @@
 }
 
 .auth-form__socials {
-    background-color: #f5f5f5;
+    /* background-color: #f5f5f5; */
+    background-color: white;
     padding: 14px 36px;
     display: flex;
     justify-content: space-between;
@@ -135,6 +136,7 @@
 .auth-form__socials--facebook {
     cursor: pointer;
     background-color: #3a5a98;
+    /* background-color: white; */
     color: var(--white-color);
     height: 35px;
     border-radius: 3px;

@@ -171,7 +171,7 @@ function Login(props) {
                         </div>
                     </form>
                     <div className="auth-form__socials">
-                        <a href="" className="auth-form__socials--facebook">
+                        {/* <a href="" className="auth-form__socials--facebook">
                             <i className="auth-form__socials-icon fab fa-facebook-square"></i>
                             <span className="auth-form__socials-title">
                                 Kết nối với Facebook
@@ -182,26 +182,7 @@ function Login(props) {
                             <span className="auth-form__socials-title">
                                 Kết nối với Google
                             </span>
-                        </a>
-                        {/* <button onClick={passgg}>abc</button> */}
-                        {/* 
-                        <GoogleLogin
-                            clientId="255711495560-p9lgiqee38atf9vd3krv0n74qpa2h2b1.apps.googleusercontent.com"
-                            buttonText="Google Login"
-                            onSuccess={passgg}
-                            onFailure={failgg}
-                            cookiePolicy={'single_host_origin'}
-                        /> */}
-
-                        {/* <GoogleLogin
-                            clientId={googleApi}
-                            buttonText="Login with Google"
-                            onSuccess={responseGoogle}
-                            onFailure={responseGoogle}
-                            cookiePolicy={"single_host_origin"}
-                            className="google-button mt-16"
-                        /> */}
-
+                        </a> */}
                     </div>
                 </div>
             </div>

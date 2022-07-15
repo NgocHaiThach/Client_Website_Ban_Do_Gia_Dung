@@ -11,6 +11,7 @@ import { getInfoSuccess } from '../../../redux/personalInfo/personalInfoSlice';
 import { getListCartByIdUser } from '../../../redux/cart/apiFunctionCart';
 import { getPersonalInfoById } from '../../../redux/personalInfo/apiFunctionPersonal';
 import { getListCartSuccess } from '../../../redux/cart/cartSlice';
+import { BsChevronDown } from "react-icons/bs";
 
 
 
@@ -73,7 +74,8 @@ function HeaderInfo(props) {
                         {accessToken.userId === "" ? "Đăng nhập tài khoản" : accessToken.userPhone}
                         {/* {accessToken.userPhone} */}
 
-                        <i className="fas fa-chevron-down"></i>
+                        {/* <i className="fas fa-chevron-down"></i> */}
+                        <BsChevronDown style={{ marginLeft: '5px' }} />
 
                         <ul className="header-info_about-list">
                             <li className="header-info_about-item">

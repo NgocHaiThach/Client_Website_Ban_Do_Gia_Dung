@@ -128,7 +128,7 @@ function Register(props) {
                     </form>
 
                     <div className="auth-form__socials">
-                        <a href="" className="auth-form__socials--facebook btn btn--size-s btn--with-icon">
+                        {/* <a href="" className="auth-form__socials--facebook btn btn--size-s btn--with-icon">
                             <i className="auth-form__socials-icon fab fa-facebook-square"></i>
                             <span className="auth-form__socials-title">
                                 Kết nối với Facebook
@@ -139,7 +139,7 @@ function Register(props) {
                             <span className="auth-form__socials-title">
                                 Kết nối với Google
                             </span>
-                        </a>
+                        </a> */}
                     </div>
                 </div>
             </div>

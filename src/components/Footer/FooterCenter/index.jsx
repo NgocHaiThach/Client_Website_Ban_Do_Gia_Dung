@@ -14,7 +14,7 @@ function FooterCenter(props) {
                                 Đống Đa, Thành phố Hà Nội, Việt Nam. Người đại diện: Nguyễn Văn Tiến Mã số thuế:
                                 0108120341, ngày cấp ĐKKD 5/1/2018. Nơi cấp: Sở kế hoạch và đầu tư Hà Nội. Điện
                                 thoại:
-                                1800-6926 Email: cskh@tokyolife.vn</p>
+                                1800-6926 Email: cskh@ottel.vn</p>
                             <a href="http://online.gov.vn/Home/WebDetails/57002">
                                 <img
                                     src="	https://tokyolife.vn/media/wysiwyg/home-page-image/20150827110756-dathongbao.png"

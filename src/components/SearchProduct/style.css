@@ -29,10 +29,10 @@
 
 .product-propose_new-item_info {
     text-align: center;
-    font-size: 14px;
+    font-size: 16px;
     color: var(--text-color);
     padding-top: 14px;
-    font-weight: 400;
+    font-weight: 600;
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;

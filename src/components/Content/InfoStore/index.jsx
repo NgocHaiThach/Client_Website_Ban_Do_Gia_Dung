@@ -30,9 +30,9 @@ function InfoStore(props) {
                             <div className="info-store_about">
                                 <img src="https://tokyolife.vn/media/wysiwyg/blog/370x270.2.jpg" alt="tokyolife"
                                     className="info-store_about-img" />
-                                <h3 className="info-store_about-sub">CHỨNG NHẬN CHÍNH HẢNG</h3>
-                                <p className="info-store_about-text">Giấy chứng nhận nhập khẩu chính hãng từ các thương hiệu
-                                    nổi tiếng Nhật Bản...</p>
+                                <h3 className="info-store_about-sub">CHỨNG NHẬN CHÍNH HÃNG</h3>
+                                {/* <p className="info-store_about-text">Giấy chứng nhận nhập khẩu chính hãng từ các thương hiệu
+                                    nổi tiếng Nhật Bản...</p> */}
                             </div>
                         </div>
                     </div>
