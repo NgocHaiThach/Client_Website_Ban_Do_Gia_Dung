@@ -83,8 +83,8 @@
 .product-propose_new-item {
     position: relative;
     margin-top: 18px;
-    max-width: 220px;
-    margin-left: 100px;
+    max-width: 264px;
+    margin-left: 5px;
 }
 
 .product-propose_new-item_contain {
@@ -121,10 +121,10 @@
 
 .product-propose_new-item_info {
     text-align: center;
-    font-size: 14px;
+    font-size: 16px;
     color: var(--text-color);
     padding-top: 14px;
-    font-weight: 400;
+    font-weight: 600;
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -139,7 +139,7 @@
 
 .product-propose_new-item_price {
     text-align: center;
-    font-size: 16px;
+    font-size: 18px;
     color: var(--primary-color);
     line-height: 28px;
     font-weight: 500;

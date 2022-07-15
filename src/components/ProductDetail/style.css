@@ -24,9 +24,17 @@ img {
     margin: 0 40px;
     width: 480px;
     height: 330px;
+    /* transform: scale(1.35); */
 }
+
+.img-showcase img:hover {
+    transform: scale(1.65);
+}
+
+
 .img-select {
     display: flex;
+    justify-content:center;
 }
 .img-item {
     margin: 0.3rem;
