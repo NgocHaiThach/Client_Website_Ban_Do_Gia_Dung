@@ -163,7 +163,7 @@ function Bill(props) {
                             {preview?.address?.provinceName}
                         </div>
                         <div className="bill__addres-home-phone" style={{ color: "var(--primary-color)" }}>
-                            {preview?.address?.note}
+                            {preview?.note}
                         </div>
                         <div className="bill__addres-home-phone">
                             <a href={`tel:${preview?.address?.phone}`}>
